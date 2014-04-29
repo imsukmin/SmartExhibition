@@ -1,5 +1,6 @@
 var bodyParser = require('body-parser');
 var express = require('express');
+var mysql = require('mysql');
 var app = express();
 
 app.use(bodyParser()); // pull information from html in POST
@@ -42,11 +43,26 @@ app.get('/ap', function(req, res){
 app.get('/json', function(req, res){
 	res.set('Content-Type', 'text/json');
 
-	res.send({ 
-		name: 'gamjachip',
-		app: 'Smart Exhibition'
-			 });
-	console.log('json Worked');
+	var query = 'select * from BoothInfo';
+	if(req.query.q != null){
+		query = req.query.q;
+	}
+
+	var client = mysql.createConnection({
+		user: 'gamjachip',
+		password: 'hansung113',
+		database: 'gamjachip'	// instead of "client.query('USE gamjachip')"
+	});
+
+	client.query(query, function ( error, result, fields ){
+		if(error){
+			res.send('query is not correct! query is ' + query + ' and error is ' + error);
+		} else {
+			res.send(result);
+		}
+		console.log('json Worked [' + req.query.q + ']');
+	})
+	
 });
 
 app.get('/200', function(req, res){
