@@ -29,4 +29,10 @@ proguard/
 .idea/
 
 # node.js
-node_modules/
+server/node_modules/
+
+#sublime text
+sftp-congig.json
+
+# OSX
+.DS_Store

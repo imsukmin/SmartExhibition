@@ -20,6 +20,7 @@ app.get('/', function(req, res){
 		console.log('root Worked');
 	}
 });
+
 app.get('/connect', function(req, res){
 	res.send('it work!! Welcome to express.');
 	console.log('connect Worked');
@@ -41,7 +42,7 @@ app.get('/ap', function(req, res){
 });
 
 app.get('/json', function(req, res){
-	res.set('Content-Type', 'text/json');
+	res.set('Content-Type', 'text/html');
 
 	var query = 'select * from BoothInfo';
 	if(req.query.q != null){
