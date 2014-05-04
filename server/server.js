@@ -1,3 +1,4 @@
+var config = require('./config'); // make yours if you don't make it. it will not work.
 var bodyParser = require('body-parser');
 var express = require('express');
 var mysql = require('mysql');
@@ -50,9 +51,9 @@ app.get('/json', function(req, res){
 	}
 
 	var client = mysql.createConnection({
-		user: 'gamjachip',
-		password: 'hansung113',
-		database: 'gamjachip'	// instead of "client.query('USE gamjachip')"
+		user: config.db.host,
+		password: config.db.password,
+		database: config.db.dbname	// instead of "client.query('USE [DBname]')"
 	});
 
 	client.query(query, function ( error, result, fields ){

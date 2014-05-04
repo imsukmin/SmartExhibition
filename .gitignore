@@ -28,8 +28,12 @@ proguard/
 *.iws
 .idea/
 
+# config file
+config.*
+
 # node.js
 server/node_modules/
+config.js
 
 #sublime text
 sftp-congig.json

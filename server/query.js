@@ -1,10 +1,10 @@
 var mysql = require('mysql');
-
+var config = require('./config');
 
 var client = mysql.createConnection({
-	user: 'gamjachip',
-	password: 'hansung113',
-	database: 'gamjachip'	// instead of "client.query('USE gamjachip')"
+	user: config.db.host,
+	password: config.db.password,
+	database: config.db.dbname	// instead of "client.query('USE [DBname]')"
 });
 
 
