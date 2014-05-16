@@ -1,14 +1,24 @@
 #!/sh/bin
 
 
-NGINXROOTPATH = "/usr/share/nginx/html/"
-NGINXCONFIGPATH = "/etc/nginx/sites-available/default"
-PHPPATH = ""
+# NGINXROOTPATH = "/usr/share/nginx/html/"
+# NGINXCONFIGPATH = "/etc/nginx/sites-available/default"
+# PHPPATH = ""
 
 
 echo "########################################"
 echo "      Server install script start      "
 echo "########################################"
+
+#################################
+###       clone project       ###
+#################################
+
+## Before install.... do this!
+
+## sudo apt-get install git
+## git clone https://github.com/imsukmin/GamjaChip.git
+
 
 #################################
 ###    Register tool's ppa    ###
