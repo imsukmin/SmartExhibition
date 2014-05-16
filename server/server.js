@@ -11,9 +11,35 @@ var client = mysql.createConnection({
 	database: config.db.dbname	// instead of "client.query('USE [DBname]')"
 });
 
+function getDateTime() {
+
+    var date = new Date();
+
+    var hour = date.getHours();
+    hour = (hour < 10 ? "0" : "") + hour;
+
+    var min  = date.getMinutes();
+    min = (min < 10 ? "0" : "") + min;
+
+    var sec  = date.getSeconds();
+    sec = (sec < 10 ? "0" : "") + sec;
+
+    var year = date.getFullYear();
+
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? "0" : "") + month;
+
+    var day  = date.getDate();
+    day = (day < 10 ? "0" : "") + day;
+
+    return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
+
+};
+
 app.use(bodyParser()); // pull information from html in POST
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+// app.use(express.responseTime());
 
 app.get('/', function(req, res){
 	var msg = req.query.msg;
@@ -25,13 +51,13 @@ app.get('/', function(req, res){
 		console.log('root message Worked');
 	} else {
 		res.send('Hello world!!');
-		console.log('root Worked');
+		console.log(getDateTime() + ' root Worked');
 	}
 });
 
 app.get('/connect', function(req, res){
 	res.send('it work!! Welcome to express.');
-	console.log('connect Worked');
+	console.log(getDateTime() + ' connect Worked');
 
 });
 
@@ -40,7 +66,7 @@ app.get('/GetByNFC', function(req, res){
 	var name = req.query.name;
 
 	res.send('I get NFC id No. ' + id + " and name is " + name);
-	console.log('GetByNFC Worked');
+	console.log(getDateTime() + ' GetByNFC Worked');
 });
 
 app.get('/getAP', function(req, res){
@@ -57,7 +83,7 @@ app.get('/getAP', function(req, res){
 		} else {
 			res.send(result);
 		}
-		console.log('getAP Worked');
+		console.log(getDateTime() + ' getAP Worked');
 	})
 });
 
@@ -72,7 +98,7 @@ app.get('/ExhibitionInfo', function(req, res){
 	} else {
 		res.send(result);
 	}
-		console.log('ExhibitionInfo Worked [' + req.query.q + ']');
+		console.log(getDateTime() + ' ExhibitionInfo Worked');
 	})
 });
 
@@ -87,7 +113,7 @@ app.get('/BoothInfo', function(req, res){
 		} else {
 			res.send(result);
 		}
-		console.log('BoothInfo Worked [' + req.query.q + ']');
+		console.log(getDateTime() + ' BoothInfo Worked');
 	})
 });
 app.get('/BoothList', function(req, res){
@@ -101,7 +127,7 @@ app.get('/BoothList', function(req, res){
 		} else {
 			res.send(result);
 		}
-		console.log('BoothList Sended');
+		console.log(getDateTime() + ' BoothList Sended');
 	})
 });
 
@@ -116,28 +142,28 @@ app.get('/admin/query', function(req, res){
 		} else {
 			res.send(result);
 		}
-		console.log('Admin-query worked');
+		console.log(getDateTime() + ' Admin-query worked');
 	})
 });
 
 app.get('/200', function(req, res){
 	res.send(200);
-	console.log('200 Worked');
+	console.log(getDateTime() + ' 200 Worked');
 });
 
 app.get('/404', function(req, res){
 	res.send(404);
-	console.log('404 Worked');
+	console.log(getDateTime() + ' 404 Worked');
 });
 
 app.get('/500', function(req, res){
 	var level = req.query.level;	
 	res.send(500);
-	console.log('500 Worked');
+	console.log(getDateTime() + ' 500 Worked');
 });
 
 var server = app.listen(43125, function() {
-    console.log('Listening on port %d', server.address().port);
+    console.log(getDateTime() + ' Listening on port %d', server.address().port);
 });
 
 
