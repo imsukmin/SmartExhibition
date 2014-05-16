@@ -23,14 +23,6 @@ sudo add-apt-repository -y ppa:chris-lea/node.js
 sudo apt-get update
 
 #################################
-###       clone project       ###
-#################################
-
-sudo apt-get install git
-sudo apt-get install svn
-git clone https://github.com/imsukmin/GamjaChip.git
-
-#################################
 ###       install NginX       ###
 #################################
 
