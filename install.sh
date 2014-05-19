@@ -1,14 +1,24 @@
 #!/sh/bin
 
+# Don't use blank if you declear valuable
+NGINXROOTPATH="/usr/share/nginx/html/"
+NGINXCONFIGPATH="/etc/nginx/sites-available/default"
+PHPPATH="/etc/php5/fpm/pool.d/"
 
-# NGINXROOTPATH = "/usr/share/nginx/html/"
-# NGINXCONFIGPATH = "/etc/nginx/sites-available/default"
-# PHPPATH = ""
+ROOT_UID="0"
 
 
 echo "########################################"
 echo "      Server install script start      "
 echo "########################################"
+
+
+#Check if run as root
+if [ "$UID" -ne "$ROOT_UID" ] ; then
+	echo "ERROR : You must be root to do that!"
+	exit 1
+fi
+
 
 #################################
 ###       clone project       ###
@@ -16,7 +26,7 @@ echo "########################################"
 
 ## Before install.... do this!
 
-## sudo apt-get install git
+## apt-get install git
 ## git clone https://github.com/imsukmin/GamjaChip.git
 
 
@@ -24,37 +34,37 @@ echo "########################################"
 ###    Register tool's ppa    ###
 #################################
 # 1. add repository of NginX
-sudo add-apt-repository -y ppa:nginx/development
+add-apt-repository -y ppa:nginx/development
 
 # 2. add repository of node.js
-sudo add-apt-repository -y ppa:chris-lea/node.js
+add-apt-repository -y ppa:chris-lea/node.js
 
 # 3. apply ppa
-sudo apt-get update
+apt-get update
 
 #################################
 ###       install NginX       ###
 #################################
 
 # aptitude ==> install tool seems like apt-get
-sudo apt-get install aptitude
-sudo aptitude install software-properties-common
-sudo apt-get install nginx
+apt-get -y install aptitude
+aptitude -y install software-properties-common
+apt-get -y install nginx
 
 #################################
 ###  install MySql and php5   ###
 #################################
 
-sudo apt-get install mysql-server mysql-client
+apt-get -y install mysql-server mysql-client
 
 # php-fpm 설치시 의존성으로 php5 가 설치된다.
-$ sudo apt-get install php5-fpm
+$ apt-get -y install php5-fpm
 
 # php5 모듈 설치
-$ sudo apt-get install php5-cli php5-mcrypt php5-gd
+$ apt-get -y install php5-cli php5-mcrypt php5-gd
 
 # php-fpm 과 mysql 연동
-$ sudo apt-get install php5-mysql
+$ apt-get -y install php5-mysql
 
 
 #################################
@@ -62,19 +72,19 @@ $ sudo apt-get install php5-mysql
 #################################
 
 # 2. change php5-fpm config 
-sudo cp /etc/php5/fpm/pool.d/www.conf ./www.conf-original
+cp /etc/php5/fpm/pool.d/www.conf ./www.conf-original
 
 ##### changed infomation ##### 
 ## ; Note: This value is mandatory.
 ## ;listen = 127.0.0.1:9000
 ## listen = /dev/shm/php5-fpm.sock
-sudo mv ./www.conf /etc/php5/fpm/pool.d/www.conf
+mv ./www.conf /etc/php5/fpm/pool.d/www.conf
 
 # 3. php5-fpm restart
-sudo /etc/init.d/php5-fpm restart
+/etc/init.d/php5-fpm restart
 
 # 4. change nginx config 
-sudo cp /etc/nginx/sites-available/default ./default-original
+cp /etc/nginx/sites-available/default ./default-original
 
 ##### changed infomation ##### 
 ### pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
@@ -89,33 +99,33 @@ sudo cp /etc/nginx/sites-available/default ./default-original
 ##                fastcgi_index index.php;
 ##                include fastcgi_params;
 ##        }
-sudo mv ./default /etc/nginx/sites-available/default
+mv ./default /etc/nginx/sites-available/default
 
 # 5. check nginx configuration
-sudo nginx -t 
+nginx -t 
 
 # 6. nginx setting complete and reload
-sudo nginx -s reload
+nginx -s reload
 
 #################################
 ###      install node.js      ###
 #################################
 
 # 1. install tools to install node.js
-sudo apt-get install python-software-properties python g++ make
+apt-get -y install python-software-properties python g++ make
 
 # 2. install node.js
-sudo apt-get install nodejs
+apt-get -y install nodejs
 
 #################################
 ###    install node server    ###
 #################################
-cp ./server $NGINXROOTPATH
+cp server/ $NGINXROOTPATH
 
 #################################
 ###    install Web Manager    ###
 #################################
-cp ./www $NGINXROOTPATH
+cp www/ $NGINXROOTPATH
 
 
 
