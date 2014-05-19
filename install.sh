@@ -48,11 +48,6 @@ echo "insert into user values('localhost', '$user', password('$passwd'), 'N', 'N
 echo "insert into db values ('localhost','$db','$user','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y');" >> useradd.sql 
 echo "flush privileges;" >> useradd.sql 
 
-# Beforehead, set Mysql root Password use "debconf-set-selections"
-sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password $MysqlRootPASSWORD'
-sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password $MysqlRootPASSWORD'
-
-
 #################################
 ###       clone project       ###
 #################################
@@ -75,6 +70,7 @@ add-apt-repository -y ppa:chris-lea/node.js
 # 3. apply ppa
 apt-get update
 
+clear
 echo "########################################"
 echo "          apt-get install START         "
 echo "########################################"
@@ -92,7 +88,12 @@ apt-get -y install nginx
 ###  install MySql and php5   ###
 #################################
 
-apt-get -y install mysql-server mysql-client
+# Beforehead, set Mysql root Password use "debconf-set-selections"
+debconf-set-selections << 'mysql-server mysql-server/root_password password $MysqlRootPASSWORD'
+debconf-set-selections << 'mysql-server mysql-server/root_password_again password $MysqlRootPASSWORD'
+
+apt-get -y install mysql-server 
+apt-get -y install mysql-client
 
 # When php-fpm install, php5 will install too.
 apt-get -y install php5-fpm

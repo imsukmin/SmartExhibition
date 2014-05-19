@@ -8,8 +8,8 @@
 ####DO that into console in Ubuntu/Debian
 
 1. type : "sudo apt-get install git"
-2. type : "git clone https://github.com/imsukmin/GamjaChip.git"
-3. type : "cd gamjachip"
+2. type : "git clone https://github.com/imsukmin/se.git"
+3. type : "cd se"
 4. type : "sudo sh install.sh"
 5. input server setting data
 6. type : "node server.js > working.log &" OR "nohup node server.js > working.log &"
