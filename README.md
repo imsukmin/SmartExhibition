@@ -11,5 +11,5 @@
 2. "git clone https://github.com/imsukmin/GamjaChip.git"
 3. "cd gamjachip"
 4. "sudo sh install.sh"
-4-1. input server setting data
-5. "node server.js > working.log &" OR "nohup node server.js > working.log &"
+5. input server setting data
+6. "node server.js > working.log &" OR "nohup node server.js > working.log &"
