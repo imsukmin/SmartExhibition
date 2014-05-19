@@ -16,10 +16,8 @@ echo "########################################"
 #Check if run as root
 if [ "$UID" -ne "$ROOT_UID" ] ; then
 	echo "ERROR : You must be root to do that!"
-	exit 1
-fi
-
-
+	exit 
+else 	
 #################################
 ###       clone project       ###
 #################################
@@ -127,5 +125,4 @@ cp server/ $NGINXROOTPATH
 #################################
 cp www/ $NGINXROOTPATH
 
-
-
+fi
