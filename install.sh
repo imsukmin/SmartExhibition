@@ -1,4 +1,4 @@
-#!/sh/bin
+#!/bin/bash
 
 # Don't use blank if you declear valuable
 NGINXROOTPATH="/usr/share/nginx/html/"
@@ -12,8 +12,7 @@ echo "########################################"
 
 
 #Check if run as root
-if [ $UID != 0 ];
-then
+if [ "$(whoami)" != "root" ]; then
 	echo "ERROR : You must be root to do that! : USE sudo"
 	exit 1
 else 	
@@ -129,5 +128,5 @@ cp -r www/ $NGINXROOTPATH
 fi
 
 echo "########################################"
-echo "      Server install script start      "
+echo "       Server install script end       "
 echo "########################################"

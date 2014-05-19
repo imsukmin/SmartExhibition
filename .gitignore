@@ -33,10 +33,10 @@ config.*
 
 # node.js
 server/node_modules/
-config.js
+server/config.js
 
-#sublime text
-sftp-congig.json
+#sublime text - sftp
+sftp-config.json
 
 # OSX
 .DS_Store
