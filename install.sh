@@ -5,6 +5,7 @@ NGINXROOTPATH="/usr/share/nginx/html/"
 NGINXCONFIGPATH="/etc/nginx/sites-available/default"
 PHPPATH="/etc/php5/fpm/pool.d/"
 
+
 clear
 echo "########################################"
 echo "      Server install script start      "
@@ -13,9 +14,45 @@ echo "########################################"
 
 #Check if run as root
 if [ "$(whoami)" != "root" ]; then
-	echo "ERROR : You must be root to do that! : USE sudo"
+	echo "ERROR : You must be root to do that!"
+	echo "Type : sudo sh install.sh"
 	exit 1
-else 	
+fi
+
+echo "########################################"
+echo "      set your server account data      "
+echo "########################################"
+
+# set installing DATA
+# $db = DB name
+# $user = user name
+# $passwd = Password
+# $MysqlRootPASSWORD = mysql root's Password
+
+echo "## WARNING!! : Please input carefully!!" 
+echo -n "----input Mysql Root Password----" 
+echo -n " RootPASSWORD : " 
+read MysqlRootPASSWORD 
+echo "----input DBNAME----" 
+echo -n " DBNAME : " 
+read db 
+echo "----input Username----" 
+echo -n " DBUSER : " 
+read user 
+echo "----input UserPassword---" 
+echo -n " DBPASSWD : " 
+read passwd 
+echo "use mysql;" > useradd.sql 
+echo "create database $db;" >> useradd.sql 
+echo "insert into user values('localhost', '$user', password('$passwd'), 'N', 'N', 'N', 'N','N', 'N', 'N', 'N', 'N', 'N', 'N', 'N','N', 'N');" >> useradd.sql 
+echo "insert into db values ('localhost','$db','$user','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y');" >> useradd.sql 
+echo "flush privileges;" >> useradd.sql 
+
+# Beforehead, set Mysql root Password use "debconf-set-selections"
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password $MysqlRootPASSWORD'
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password $MysqlRootPASSWORD'
+
+
 #################################
 ###       clone project       ###
 #################################
@@ -37,6 +74,10 @@ add-apt-repository -y ppa:chris-lea/node.js
 
 # 3. apply ppa
 apt-get update
+
+echo "########################################"
+echo "          apt-get install START         "
+echo "########################################"
 
 #################################
 ###       install NginX       ###
@@ -62,6 +103,11 @@ apt-get -y install php5-cli php5-mcrypt php5-gd
 # pairing php-fpm and mysql 
 apt-get -y install php5-mysql
 
+# execute sql query basic before input's
+mysql -u root -p$MysqlRootPASSWORD < useradd.sql
+
+# delete data file
+rm -rf useradd.sql
 
 #################################
 ### NginX - PHP collaboration ###
@@ -114,6 +160,23 @@ apt-get -y install python-software-properties python g++ make
 apt-get -y install nodejs
 
 #################################
+###     making config.js      ###
+#################################
+echo "var config = {}"  >> config.js
+echo "// make namespace"  >> config.js
+echo "config.db = {};"  >> config.js
+echo " "  >> config.js
+echo "// register data in config.db"  >> config.js
+echo "config.db.host = $user;"  >> config.js
+echo "config.db.password = $passwd;"  >> config.js
+echo "config.db.dbname = $db;"  >> config.js
+echo "config.db.port = 3000;"  >> config.js
+echo " "  >> config.js
+echo "module.exports = config;"  >> config.js
+
+mv -r config.js server/config.js
+
+#################################
 ###    install node server    ###
 #################################
 ## use recursive plag
@@ -124,8 +187,6 @@ cp -r server/ $NGINXROOTPATH
 #################################
 ## use recursive plag
 cp -r www/ $NGINXROOTPATH
-
-fi
 
 echo "########################################"
 echo "       Server install script end       "

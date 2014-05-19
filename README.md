@@ -5,10 +5,11 @@
 
 ##How to install project (at Ubuntu 12.04)
 
-##type that into console in Ubuntu/Debian
+####DO that into console in Ubuntu/Debian
 
-1. sudo apt-get install git
-2. git clone https://github.com/imsukmin/GamjaChip.git
-3. cd gamjachip
-4. sudo sh install.sh
-5. after install completely, set server/unset-config.js
+1. "sudo apt-get install git"
+2. "git clone https://github.com/imsukmin/GamjaChip.git"
+3. "cd gamjachip"
+4. "sudo sh install.sh"
+4-1. input server setting data
+5. "node server.js > working.log &" OR "nohup node server.js > working.log &"

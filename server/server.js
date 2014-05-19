@@ -1,5 +1,5 @@
 var config = require('./config');
-var bodyParser = require('body-parser');var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 var express = require('express');
 var mysql = require('mysql');
 var app = express();
