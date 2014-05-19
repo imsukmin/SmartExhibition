@@ -5,18 +5,17 @@ NGINXROOTPATH="/usr/share/nginx/html/"
 NGINXCONFIGPATH="/etc/nginx/sites-available/default"
 PHPPATH="/etc/php5/fpm/pool.d/"
 
-ROOT_UID="0"
-
-
+clear
 echo "########################################"
 echo "      Server install script start      "
 echo "########################################"
 
 
 #Check if run as root
-if [ "$UID" -ne "$ROOT_UID" ] ; then
-	echo "ERROR : You must be root to do that!"
-	exit 
+if [ $UID != 0 ];
+then
+	echo "ERROR : You must be root to do that! : USE sudo"
+	exit 1
 else 	
 #################################
 ###       clone project       ###
@@ -55,21 +54,21 @@ apt-get -y install nginx
 
 apt-get -y install mysql-server mysql-client
 
-# php-fpm 설치시 의존성으로 php5 가 설치된다.
-$ apt-get -y install php5-fpm
+# When php-fpm install, php5 will install too.
+apt-get -y install php5-fpm
 
-# php5 모듈 설치
-$ apt-get -y install php5-cli php5-mcrypt php5-gd
+# install php5 module
+apt-get -y install php5-cli php5-mcrypt php5-gd
 
-# php-fpm 과 mysql 연동
-$ apt-get -y install php5-mysql
+# pairing php-fpm and mysql 
+apt-get -y install php5-mysql
 
 
 #################################
 ### NginX - PHP collaboration ###
 #################################
 
-# 2. change php5-fpm config 
+# 1. change php5-fpm config 
 cp /etc/php5/fpm/pool.d/www.conf ./www.conf-original
 
 ##### changed infomation ##### 
@@ -78,10 +77,10 @@ cp /etc/php5/fpm/pool.d/www.conf ./www.conf-original
 ## listen = /dev/shm/php5-fpm.sock
 mv ./www.conf /etc/php5/fpm/pool.d/www.conf
 
-# 3. php5-fpm restart
+# 2. php5-fpm restart
 /etc/init.d/php5-fpm restart
 
-# 4. change nginx config 
+# 3. change nginx config 
 cp /etc/nginx/sites-available/default ./default-original
 
 ##### changed infomation ##### 
@@ -99,10 +98,10 @@ cp /etc/nginx/sites-available/default ./default-original
 ##        }
 mv ./default /etc/nginx/sites-available/default
 
-# 5. check nginx configuration
+# 4. check nginx configuration
 nginx -t 
 
-# 6. nginx setting complete and reload
+# 5. nginx setting complete and reload
 nginx -s reload
 
 #################################
@@ -118,11 +117,17 @@ apt-get -y install nodejs
 #################################
 ###    install node server    ###
 #################################
-cp server/ $NGINXROOTPATH
+## use recursive plag
+cp -r server/ $NGINXROOTPATH
 
 #################################
 ###    install Web Manager    ###
 #################################
-cp www/ $NGINXROOTPATH
+## use recursive plag
+cp -r www/ $NGINXROOTPATH
 
 fi
+
+echo "########################################"
+echo "      Server install script start      "
+echo "########################################"
