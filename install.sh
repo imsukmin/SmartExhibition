@@ -30,16 +30,12 @@ echo "########################################"
 # $MysqlRootPASSWORD = mysql root's Password
 
 echo "## WARNING!! : Please input carefully!!" 
-echo -n "----input Mysql Root Password----" 
 echo -n " RootPASSWORD : " 
 read MysqlRootPASSWORD 
-echo "----input DBNAME----" 
 echo -n " DBNAME : " 
-read db 
-echo "----input Username----" 
+read db  
 echo -n " DBUSER : " 
 read user 
-echo "----input UserPassword---" 
 echo -n " DBPASSWD : " 
 read passwd 
 echo "use mysql;" > useradd.sql 
@@ -89,8 +85,8 @@ apt-get -y install nginx
 #################################
 
 # Beforehead, set Mysql root Password use "debconf-set-selections"
-debconf-set-selections << 'mysql-server mysql-server/root_password password $MysqlRootPASSWORD'
-debconf-set-selections << 'mysql-server mysql-server/root_password_again password $MysqlRootPASSWORD'
+debconf-set-selections << "mysql-server mysql-server/root_password password $MysqlRootPASSWORD"
+debconf-set-selections << "mysql-server mysql-server/root_password_again password $MysqlRootPASSWORD"
 
 apt-get -y install mysql-server 
 apt-get -y install mysql-client
