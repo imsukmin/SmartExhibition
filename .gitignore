@@ -32,8 +32,8 @@ proguard/
 config.*
 
 # node.js
-server/node_modules/
 server/config.js
+server/connecting.log
 
 #sublime text - sftp
 sftp-config.json
