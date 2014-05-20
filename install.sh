@@ -111,19 +111,19 @@ rm -rf useradd.sql
 #################################
 
 # 1. change php5-fpm config 
-cp /etc/php5/fpm/pool.d/www.conf ./www.conf-original
+cp /etc/php5/fpm/pool.d/www.conf configFile/www.conf-original
 
 ##### changed infomation ##### 
 ## ; Note: This value is mandatory.
 ## ;listen = 127.0.0.1:9000
 ## listen = /dev/shm/php5-fpm.sock
-mv ./www.conf /etc/php5/fpm/pool.d/www.conf
+mv -f configFile/www.conf /etc/php5/fpm/pool.d/www.conf
 
 # 2. php5-fpm restart
 /etc/init.d/php5-fpm restart
 
 # 3. change nginx config 
-cp /etc/nginx/sites-available/default ./default-original
+cp /etc/nginx/sites-available/default configFile/default-original
 
 ##### changed infomation ##### 
 ### pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
@@ -138,7 +138,7 @@ cp /etc/nginx/sites-available/default ./default-original
 ##                fastcgi_index index.php;
 ##                include fastcgi_params;
 ##        }
-mv ./default /etc/nginx/sites-available/default
+mv -f configFile/default /etc/nginx/sites-available/default
 
 # 4. check nginx configuration
 nginx -t 
@@ -159,7 +159,7 @@ apt-get -y install nodejs
 #################################
 ###     making config.js      ###
 #################################
-echo "var config = {}"  >> config.js
+echo "var config = {}"  > config.js
 echo "// make namespace"  >> config.js
 echo "config.db = {};"  >> config.js
 echo " "  >> config.js

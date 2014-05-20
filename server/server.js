@@ -69,6 +69,47 @@ app.get('/GetByNFC', function(req, res){
 	console.log(getDateTime() + ' GetByNFC Worked');
 });
 
+app.get('/checkHitCount', function(req, res){
+	var index = req.query.index;
+	var userID = req.query.userID;
+
+	var query = "SELECT count(*) FROM `visitors` WHERE `index` = " + index + " and `userID` = '" + userID + "'";
+	if(req.query.q != null){
+		query = req.query.q;
+	}
+
+	client.query(query, function( error, result, fields ){
+		if(error){
+			res.send('query is not correct! query is ' + query + ' and error is ' + error);
+		} else if (query > 0){
+			res.send(result);
+		} else if( query == 0) {
+			query = "INSERT INTO `gamjachip`.`visitors` (`index` ,`userID`) VALUES ( '" + index + "',  '" + userID + "')";
+			if(req.query.q != null){
+				query = req.query.q;
+			}
+		}
+	})
+	console.log('checkHitCount worked.');
+})
+
+app.get('/showLinking',function(req, res){
+
+	var query = "SELECT  `index` , COUNT(  `index` ) as count FROM  `visitors` GROUP BY  `index` order by count desc LIMIT 0 , 30";
+	if(req.query.q != null){
+		query = req.query.q;
+	}
+
+	client.query(query, function( error, result, fields ){
+		if(error){
+			res.send('query is not correct! query is ' + query + ' and error is ' + error);
+		} else {
+			res.send(result);
+		}
+	})
+	console.log('showLinking worked.');
+})
+
 app.get('/getAP', function(req, res){
 	res.set('Content-Type', 'text/html');
 
