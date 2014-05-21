@@ -11,29 +11,39 @@ var client = mysql.createConnection({
 	database: config.db.dbname	// instead of "client.query('USE [DBname]')"
 });
 
+function handleDisconnect() {
+
+	client.connect(function(err) {              		// The server is either down
+	    if(err) {                                     	// or restarting (takes a while sometimes).
+	      	console.log('error when connecting to db:', err);
+	      	setTimeout(handleDisconnect, 2000); 		// We introduce a delay before attempting to reconnect,
+	    }                                     			// to avoid a hot loop, and to allow our node script to
+	});													// process asynchronous requests in the meantime.
+                                          				// If you're also serving http, display a 503 error.
+	client.on('error', function(err) {
+	    console.log('db error', err);
+	    if(err.code === 'PROTOCOL_CONNECTION_LOST') { 	// Connection to the MySQL server is usually
+	      handleDisconnect();                         	// lost due to either server restart, or a
+	    } else {                                      	// connnection idle timeout (the wait_timeout
+	      throw err;                                  	// server variable configures this)
+	    }
+	});              	
+}
+
+handleDisconnect();
+
 function getDateTime() {
 
     var date = new Date();
 
-    var hour = date.getHours();
-    hour = (hour < 10 ? "0" : "") + hour;
-
-    var min  = date.getMinutes();
-    min = (min < 10 ? "0" : "") + min;
-
-    var sec  = date.getSeconds();
-    sec = (sec < 10 ? "0" : "") + sec;
-
+    var hour = date.getHours();			hour = (hour < 10 ? "0" : "") + hour;
+    var min  = date.getMinutes();		min = (min < 10 ? "0" : "") + min;
+    var sec  = date.getSeconds();		sec = (sec < 10 ? "0" : "") + sec;
     var year = date.getFullYear();
-
-    var month = date.getMonth() + 1;
-    month = (month < 10 ? "0" : "") + month;
-
-    var day  = date.getDate();
-    day = (day < 10 ? "0" : "") + day;
+	var month = date.getMonth() + 1;	month = (month < 10 ? "0" : "") + month;
+    var day  = date.getDate();			day = (day < 10 ? "0" : "") + day;
 
     return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
-
 };
 
 app.use(bodyParser()); // pull information from html in POST
@@ -70,35 +80,42 @@ app.get('/GetByNFC', function(req, res){
 });
 
 app.get('/checkHitCount', function(req, res){
+
 	var index = req.query.index;
 	var userID = req.query.userID;
 
-	var query = "SELECT count(*) FROM `visitors` WHERE `index` = " + index + " and `userID` = '" + userID + "'";
-	if(req.query.q != null){
-		query = req.query.q;
-	}
-
+	var query = "SELECT count(*) as count FROM `visitors` WHERE `index` = '" + index + "' and `userID` = '" + userID + "'";
+	var checkStatus;
+	// check userID existing
 	client.query(query, function( error, result, fields ){
 		if(error){
 			res.send('query is not correct! query is ' + query + ' and error is ' + error);
-		} else if (query > 0){
-			res.send(result);
-		} else if( query == 0) {
-			query = "INSERT INTO `gamjachip`.`visitors` (`index` ,`userID`) VALUES ( '" + index + "',  '" + userID + "')";
-			if(req.query.q != null){
-				query = req.query.q;
+
+		} else {
+			checkStatus = JSON.stringify(result).substring(10,11)
+
+			if(checkStatus == '0'){
+				query = "INSERT INTO `gamjachip`.`visitors` (`index` ,`userID`) VALUES ( '" + index + "',  '" + userID + "')";
+
+				client.query(query, function( error, result, fields ){
+					if(error){
+						res.send('query is not correct! query is ' + query + ' and error is ' + error);
+					} else {
+						query = "INSERT INTO `gamjachip`.`visitors` (`index` ,`userID`) VALUES ( '" + index + "',  '" + userID + "')";
+						res.send("Register it!!");
+					}
+				})
+			} else {
+				res.send("Already existing! : " + checkStatus);
 			}
 		}
 	})
 	console.log('checkHitCount worked.');
 })
 
-app.get('/showLinking',function(req, res){
+app.get('/showRanking',function(req, res){
 
 	var query = "SELECT  `index` , COUNT(  `index` ) as count FROM  `visitors` GROUP BY  `index` order by count desc LIMIT 0 , 30";
-	if(req.query.q != null){
-		query = req.query.q;
-	}
 
 	client.query(query, function( error, result, fields ){
 		if(error){
@@ -107,7 +124,7 @@ app.get('/showLinking',function(req, res){
 			res.send(result);
 		}
 	})
-	console.log('showLinking worked.');
+	console.log('showRanking worked.');
 })
 
 app.get('/getAP', function(req, res){
