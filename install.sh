@@ -31,13 +31,13 @@ echo "########################################"
 
 echo "## WARNING!! : Please input carefully!!" 
 echo -n " RootPASSWORD : " 
-read -s -p MysqlRootPASSWORD 
+read -s MysqlRootPASSWORD 
 echo -n " DBNAME : " 
-read -s -p  db  
+read db  
 echo -n " DBUSER : " 
-read -s -p  user 
+read user 
 echo -n " DBPASSWD : " 
-read -s -p  passwd 
+read -s passwd 
 echo "use mysql;" > useradd.sql 
 echo "create database $db;" >> useradd.sql 
 echo "insert into user values('localhost', '$user', password('$passwd'), 'N', 'N', 'N', 'N','N', 'N', 'N', 'N', 'N', 'N', 'N', 'N','N', 'N');" >> useradd.sql 
