@@ -1,0 +1,98 @@
+﻿html {font-size:12px;color:#333;padding:0;margin:0;font-family:"Malgun Gothic", Helvetica, Arial, sans-serif;line-height:18px;}
+a {text-decoration: none; color:#000;}
+input {font-family:"Malgun Gothic"}
+/*header {margin-left:auto; margin-right:auto; width:850px; height:100px;}*/
+#adminMenu {margin-left:auto; margin-right:auto; width:850px; height:100px; }
+#adminMenu ul{width:850px; height:70px; list-style:none; overflow:hidden;}
+#adminMenu ul li {
+	font-family:"맑은 고딕"; font-size:20px; width:170px;
+	float:left; background-color: #9c0; 
+	padding:0; 
+	margin:0; 
+	/*border-radius:10px 10px 0 0; */
+	border:1px}
+#adminMenu ul li a {
+	float: left;
+	text-align: center;
+	color: white;
+	text-decoration: none;
+	margin: 20px 2px 0 0;
+	border: 1px;
+	width: 170px;
+	height: 50px;}
+#adminMenu ul li:hover {background-color:#ccc; color:#333;}
+
+#userMenu {margin-left:auto; margin-right:auto; width:550px; height:100px;  }
+#userMenu ul{width:550px; height:70px; list-style:none; overflow:hidden;}
+#userMenu ul li {
+	font-family:"맑은 고딕"; font-size:20px; width:170px;
+	float:left; background-color: #9c0; 
+	padding:0; 
+	margin:0; 
+	/*border-radius:10px 10px 0 0; */
+	border:1px}
+#userMenu ul li a {
+	float: left;
+	text-align: center;
+	color: white;
+	text-decoration: none;
+	margin: 20px 2px 0 0;
+	border: 1px;
+	width: 170px;
+	height: 50px;}
+#userMenu ul li:hover {background-color:#ccc; color:#333;}
+
+/*login.php*/
+
+#loginDiv {margin-top:200px; margin-left:auto;margin-right:auto; width:250px;height:190px; border:1px solid black;}
+
+/*Home.html*/
+
+
+#homeMain {margin:10px 150px 0px 150px;}
+
+#alignMain1 {margin:auto; width:1034px; height:216px;}
+#alignMain2 {margin:auto; width:1034px; height:216px;}
+
+#adminMainFieldset {width:590px; height:200px; border-color:#F15F5F; float:left;}
+#newBoothFieldset {float:right; width:390px; height:200px; background-color: #AAA;}
+#ExhibitionInfoFieldset {float:left; margin:10px auto 0px auto; width:1010px; height:250px; border-color:#FFA7A7;}
+
+#ExhibitName {color:#22741C; font-size:12pt; font-weight:bold;}
+#ExhibitHost {color:#22741C;}
+#ExhibitDate {color:#22741C;}
+#ExhibitPlace {color:#22741C;}
+#ExhibitSummary {color:#22741C;}
+
+#logout {width:70px; position:absolute; top:85px; left:1000px;}
+
+.listnone {list-style:none; overflow:hidden;}
+
+
+/*memberJoin*/
+.datatable {margin-left:auto;margin-right:auto;width:700px;}
+
+
+/*관리자필드셋에 플로우 속성 적용*/
+#gamjachip {float:left;}
+#adminList {float:right; height:10px;}
+
+
+div.board_top {margin-top:50px;margin-left:auto;margin-right:auto;width:700px;}
+div.board_mid {margin-top:30px;margin-left:auto;margin-right:auto;width:900px;}
+div.board_btm {margin-top:30px;margin-left:auto;margin-right:auto;width:900px;}
+
+div #correctButton {float:right; width:80px;}
+#newpost {width:70px; position:absolute; top:170px; left:1000px;}
+
+textarea {resize:none;}
+
+/*float: left;
+text-align: center;
+color: white;
+
+text-decoration: none;
+margin: 20px 2px 0 0;
+border: 1px;
+width: 170px;
+height: 50px;*/
