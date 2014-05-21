@@ -1,6 +1,5 @@
 <?php
-include_once "common.php";
-include_once "_header.php";
+include "_header.php";
 ?>
 <form class="form-horizontal" action="qna_post_ok.php" method="post" enctype='multipart/form-data'>
 

@@ -1,5 +1,6 @@
 <?php
-include "common.php";
+include "_header.php";
+
 $index = $_POST['index'];
 $mode = $_GET['mode'];
 foreach($_POST as $key => $value) {

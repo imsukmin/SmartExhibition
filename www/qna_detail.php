@@ -1,5 +1,4 @@
 <?php
-include "common.php";
 include "_header.php";
 
 $index = $_GET['no'];

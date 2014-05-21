@@ -5,7 +5,7 @@
 </head>
 
 <?php
-include_once "common.php";
+include "common.php";
 
 //  rst로 abo_user의 query결과 값이 넘어오며  table로 연결이 된다.
 $id = addslashes( $_POST['id'] );
