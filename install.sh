@@ -31,13 +31,13 @@ echo "########################################"
 
 echo "## WARNING!! : Please input carefully!!" 
 echo -n " RootPASSWORD : " 
-read MysqlRootPASSWORD 
+read -s MysqlRootPASSWORD 
 echo -n " DBNAME : " 
 read db  
 echo -n " DBUSER : " 
 read user 
 echo -n " DBPASSWD : " 
-read passwd 
+read -s passwd 
 echo "use mysql;" > useradd.sql 
 echo "create database $db;" >> useradd.sql 
 echo "insert into user values('localhost', '$user', password('$passwd'), 'N', 'N', 'N', 'N','N', 'N', 'N', 'N', 'N', 'N', 'N', 'N','N', 'N');" >> useradd.sql 
@@ -85,8 +85,11 @@ apt-get -y install nginx
 #################################
 
 # Beforehead, set Mysql root Password use "debconf-set-selections"
-debconf-set-selections << "mysql-server mysql-server/root_password password $MysqlRootPASSWORD"
-debconf-set-selections << "mysql-server mysql-server/root_password_again password $MysqlRootPASSWORD"
+# debconf-set-selections <<< 'mysql-server mysql-server/root_password password $MysqlRootPASSWORD'
+# debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password $MysqlRootPASSWORD'
+
+echo mysql-server mysql-server/root_password password $MysqlRootPASSWORD | sudo debconf-set-selections
+echo mysql-server mysql-server/root_password_again password $MysqlRootPASSWORD | sudo debconf-set-selections
 
 apt-get -y install mysql-server 
 apt-get -y install mysql-client
@@ -155,6 +158,11 @@ apt-get -y install python-software-properties python g++ make
 
 # 2. install node.js
 apt-get -y install nodejs
+# 3. install node's modules
+npm install -g express
+npm install -g express-generator
+npm install -g mysql
+npm install -g socket.io
 
 #################################
 ###     making config.js      ###
