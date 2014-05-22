@@ -12,6 +12,11 @@ var client = mysql.createConnection({
 });
 
 function handleDisconnect() {
+	client = mysql.createConnection({
+		user: config.db.host,
+		password: config.db.password,
+		database: config.db.dbname	// instead of "client.query('USE [DBname]')"
+	});
 
 	client.connect(function(err) {              		// The server is either down
 	    if(err) {                                     	// or restarting (takes a while sometimes).
@@ -29,8 +34,6 @@ function handleDisconnect() {
 	    }
 	});              	
 }
-
-handleDisconnect();
 
 function getDateTime() {
 
@@ -52,6 +55,7 @@ app.use(bodyParser.urlencoded());
 // app.use(express.responseTime());
 
 app.get('/', function(req, res){
+	handleDisconnect();
 	var msg = req.query.msg;
 
 	res.set('Content-Type', 'text/html');
@@ -65,22 +69,8 @@ app.get('/', function(req, res){
 	}
 });
 
-app.get('/connect', function(req, res){
-	res.send('it work!! Welcome to express.');
-	console.log(getDateTime() + ' connect Worked');
-
-});
-
-app.get('/GetByNFC', function(req, res){
-	var id = req.query.id;
-	var name = req.query.name;
-
-	res.send('I get NFC id No. ' + id + " and name is " + name);
-	console.log(getDateTime() + ' GetByNFC Worked');
-});
-
 app.get('/checkHitCount', function(req, res){
-
+	handleDisconnect();
 	var index = req.query.index;
 	var userID = req.query.userID;
 
@@ -114,7 +104,7 @@ app.get('/checkHitCount', function(req, res){
 })
 
 app.get('/showRanking',function(req, res){
-
+	handleDisconnect();
 	var query = "SELECT  `index` , COUNT(  `index` ) as count FROM  `visitors` GROUP BY  `index` order by count desc LIMIT 0 , 30";
 
 	client.query(query, function( error, result, fields ){
@@ -128,6 +118,7 @@ app.get('/showRanking',function(req, res){
 })
 
 app.get('/getAP', function(req, res){
+	handleDisconnect();
 	res.set('Content-Type', 'text/html');
 
 	var query = 'select * from AP';
@@ -146,6 +137,7 @@ app.get('/getAP', function(req, res){
 });
 
 app.get('/ExhibitionInfo', function(req, res){
+	handleDisconnect();
 	res.set('Content-Type', 'text/html');
 
 	var query = 'select * from ExhibitionInfo';
@@ -161,6 +153,7 @@ app.get('/ExhibitionInfo', function(req, res){
 });
 
 app.get('/BoothInfo', function(req, res){
+	handleDisconnect();
 	res.set('Content-Type', 'text/html');
 
 	var query = 'select * from BoothInfo';
@@ -175,6 +168,7 @@ app.get('/BoothInfo', function(req, res){
 	})
 });
 app.get('/BoothList', function(req, res){
+	handleDisconnect();
 	res.set('Content-Type', 'text/html');
 
 	var query = 'select `index`, `teamName`, `nfcTagId` from BoothInfo';
@@ -190,6 +184,7 @@ app.get('/BoothList', function(req, res){
 });
 
 app.get('/admin/query', function(req, res){
+	handleDisconnect();
 	res.set('Content-Type', 'text/html');
 
 	var query = req.query.query;

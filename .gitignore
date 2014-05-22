@@ -28,6 +28,9 @@ proguard/
 *.iws
 .idea/
 
+# OSX
+.DS_Store
+
 # config file
 config.*
 
@@ -38,5 +41,5 @@ server/connecting.log
 #sublime text - sftp
 sftp-config.json
 
-# OSX
-.DS_Store
+# private - it must delete if project end
+BoothInfo.sql
