@@ -1,5 +1,5 @@
 <?php
-include "_header.php";
+include "common.php";
 
 
 

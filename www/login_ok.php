@@ -18,7 +18,7 @@ $loginCheck = $rst->fetch_assoc();
 
 if($loginCheck['cnt'] > 0){
 	/*****************/
-           $_SESSION['luser'] = $id;
+           $_SESSION['user'] = $id;
            $_SESSION['start'] = time(); // Taking now logged in time.
             // Ending a session in 30 minutes from the starting time.
            $_SESSION['expire'] = $_SESSION['start'] + (30 * 60); //(30*60)
@@ -29,8 +29,7 @@ if($loginCheck['cnt'] > 0){
 	$_SESSION['_gamjachip_id'] = $id;
 
 	$_SESSION['id']	=$rows['id'];
-	$_SESSION['password']	=$rows['password'];
-	$_SESSION['level']=$rows['level'];
+	$_SESSION['IDlevel']= $rows['level'];
 
 	echo "<script>location.replace('home.php');</script>";
 	// if($_SESSION['level'] == 'admin') {

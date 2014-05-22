@@ -40,7 +40,7 @@ if(!$_SESSION['_gamjachip_id']){ // 로그인이 되어있지 않은 경우 로�
 		<?php
 	} else {
 
-		if($_SESSION['level']=='admin') {
+		if($_SESSION['IDlevel']=='admin') {
 			?>
 
 			<div class="containter">
@@ -69,7 +69,7 @@ if(!$_SESSION['_gamjachip_id']){ // 로그인이 되어있지 않은 경우 로�
 
 
 						<?php
-					} else if($_SESSION['level']=='user') {
+					} else if($_SESSION['IDlevel']=='user') {
 						?>
 						<div class="containter">
 
@@ -89,7 +89,7 @@ if(!$_SESSION['_gamjachip_id']){ // 로그인이 되어있지 않은 경우 로�
 									<li><a href="logout.php">LOGOUT<span class="glyphicon glyphicon-off"></span></a></li></ul>
 
 									<?php
-								}else if($_SESSION['level']=='awaiter'){
+								}else if($_SESSION['IDlevel']=='awaiter'){
 									echo '<script> alert("가입 승인이 되어야 로그인이 가능합니다.\n승인을 기다려주세요.");</script>';
 
 

@@ -25,73 +25,102 @@ include "_header.php";
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="password">PW</label>
-				<input class="form-control input-sm" type="password" name="password" id="password" required="required">
+				<input class="form-control input-sm" type="password" name="password" id="password" placeholder="수정할 시에만 입력해주세요." >
 				<span class="help-block">영문, 숫자 포함 3~16 문자.</span>
 			</div>
+
 			<div class="form-group">
-				<label class="control-label" for="name">Name</label>
-				<input class="form-control input-sm" type="text" name="name" id="name" value="<?php echo $row['name'];?>">
-			</div>
+				<label class="control-label" for="level">Level</label>
+				<select class="form-control" id="level" name="level">
+
+					<?php
+					if($row['level']=='awaiter') {
+						?>
+						<option selected="selected">awaiter</option>
+						<option>user</option>
+						<option >admin</option>
+					<?php
+					} else if($row['level']=='user') {
+						?>
+						<option>awaiter</option>
+						<option selected="selected">user</option>
+						<option >admin</option>
+						<?php
+					} else {
+						?>
+						<option>awaiter</option>
+						<option>user</option>
+						<option selected="selected">admin</option>
+					<?php
+					}
+					?>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label" for="name">Name</label>
+			<input class="form-control input-sm" type="text" name="name" id="name" value="<?php echo $row['name'];?>">
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="teamName">TeamName</label>
+			<input class="form-control input-sm" type="text" name="teamName" id="teamName" value="<?php echo $row['teamName'];?>">
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="email">E-Mail</label>
+			<input class="form-control input-sm" type="text" name="email" id="email" value="<?php echo $row['email'];?>">
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="phone">Cell Phone</label>
+			<input class="form-control input-sm" type="text" name="phone" id="phone" value="<?php echo $row['phone'];?>">
+			<span class="help-block">예) 01012345678</span>
+		</div>
+
+		<div class="form-actions">
+			<p align="center">
+				<input type="submit"  class="btn btn-primary btn-sm" value="수정" />
+				<input type="button" class="btn btn-primary btn-sm" onclick="location.href='board.php?type=Member';" value="돌아가기" /></th></tr>
+			</p>
+		</div>
+	</div>
+	<div class="col-lg-3"></div>
+
+	<?php
+} else if($_GET['mode'] == 'delete'){
+	$index = $_GET['no'];
+	$rst = $conn->query("select * from `Member` where `index`='{$index}'");
+	$row = $rst->fetch_assoc();
+	?>
+
+	<div class="col-lg-4"></div>
+	<div class="col-lg-4">
+		<fieldset style="margin:150px auto; ">
 			<div class="form-group">
-				<label class="control-label" for="teamName">TeamName</label>
-				<input class="form-control input-sm" type="text" name="teamName" id="teamName" value="<?php echo $row['teamName'];?>">
-			</div>
-			<div class="form-group">
-				<label class="control-label" for="email">E-Mail</label>
-				<input class="form-control input-sm" type="text" name="email" id="email" value="<?php echo $row['email'];?>">
-			</div>
-			<div class="form-group">
-				<label class="control-label" for="phone">Cell Phone</label>
-				<input class="form-control input-sm" type="text" name="phone" id="phone" value="<?php echo $row['phone'];?>">
-				<span class="help-block">예) 01012345678</span>
+				<input type="hidden" name="mode" value="delete" />
+				<input type="hidden" name="index" value="<?php echo $index;?>" />
+				<table>
+					<tr><th width="100px">ID</th><td width="300px"><?php echo $row['id'];?></td></tr>
+					<tr><th width="100px">Name</th><td width="300px"><?php echo $row['name'];?></td></tr>
+					<tr><th width="100px">TeamName</th><td width="300px"><?php echo $row['teamName'];?></td></tr>
+					<tr><th width="100px">E-Mail</th><td width="300px"><?php echo $row['email'];?></td></tr>
+					<tr><th width="100px">Cell Phone</th><td width="300px"><?php echo $row['phone'];?></td></tr>
+				</table>
 			</div>
 
 			<div class="form-actions">
 				<p align="center">
-					<input type="submit"  class="btn btn-primary btn-sm" value="수정" />
+					<input type="submit"  class="btn btn-primary btn-sm" value="삭제" />
 					<input type="button" class="btn btn-primary btn-sm" onclick="location.href='board.php?type=Member';" value="돌아가기" /></th></tr>
 				</p>
 			</div>
-		</div>
-		<div class="col-lg-3"></div>
+			<div class="col-lg-4"></div>
+		</fieldset>
+
 
 		<?php
-	} else if($_GET['mode'] == 'delete'){
-		$index = $_GET['no'];
-		$rst = $conn->query("select * from `Member` where `index`='{$index}'");
-		$row = $rst->fetch_assoc();
-		?>
+	}
+	?>
 
-		<div class="col-lg-4"></div>
-		<div class="col-lg-4">
-			<fieldset style="margin:150px auto; ">
-				<div class="form-group">
-					<input type="hidden" name="mode" value="delete" />
-					<input type="hidden" name="index" value="<?php echo $index;?>" />
-					<table>
-						<tr><th width="100px">ID</th><td width="300px"><?php echo $row['id'];?></td></tr>
-						<tr><th width="100px">Name</th><td width="300px"><?php echo $row['name'];?></td></tr>
-						<tr><th width="100px">TeamName</th><td width="300px"><?php echo $row['teamName'];?></td></tr>
-						<tr><th width="100px">E-Mail</th><td width="300px"><?php echo $row['email'];?></td></tr>
-						<tr><th width="100px">Cell Phone</th><td width="300px"><?php echo $row['phone'];?></td></tr>
-					</table>
-				</div>
-
-				<div class="form-actions">
-					<p align="center">
-						<input type="submit"  class="btn btn-primary btn-sm" value="삭제" />
-						<input type="button" class="btn btn-primary btn-sm" onclick="location.href='board.php?type=Member';" value="돌아가기" /></th></tr>
-					</p>
-				</div>
-				<div class="col-lg-4"></div>
-			</fieldset>
-
-
-			<?php
-		}
-		?>
-
-	</div>
+</div>
 </form>
 
 <?php
@@ -131,7 +160,7 @@ jQuery( function($) {
 			alert('[ID 입력 오류] 유효한 ID를 입력해 주세요.');
 			id.focus();
 			return false;
-		} else if(re_pw.test(pw.val()) != true) { // 비밀번호 검사
+		} else if(re_pw.test(pw.val()) != true && pw.val() == null) { // 비밀번호 검사
 			alert('[PW 입력 오류] 유효한 PW를 입력해 주세요.');
 			pw.focus();
 			return false;
