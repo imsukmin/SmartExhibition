@@ -16,7 +16,7 @@ $phone = $conn->real_escape_string($phone);
 
 if($mode=='new'){
 	 $query = "insert into Member (`id`,`password`,`name`,`teamName`, `email`,`phone` ,`level`)
-	 values (	'$id', password('$password'), '$name', '$teamName', '$email', '$phone', 'user');";
+	 values (	'$id', password('$password'), '$name', '$teamName', '$email', '$phone', 'awaiter');";
 }else if($mode=='correct'){
 	$query = "update `Member` set 
 	`id`= '$id', 

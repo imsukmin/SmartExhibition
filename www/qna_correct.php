@@ -20,3 +20,6 @@ $row = $rst->fetch_assoc();
 	<input type="button" onclick="location.replace('board.php?type=QnA');" value="취소" /></th></tr>
 </form>
 
+<?php
+include "_footer.php";
+?>

@@ -5,7 +5,6 @@ $type = $_GET['type'];
 $index = $_GET['no'];
 ?>
 
-<div style="width:1000px; margin:20px auto;" class="container row">
 
 
 	<!--  rst로 abo_board의 query결과 값이 넘어오며  table로 연결이 된다. -->
@@ -21,9 +20,9 @@ $index = $_GET['no'];
 
 			</div>
 			<div class="panel-content">
-				<div class="col-md-2">
+				<div class="col-lg-2">
 				</div>
-				<div class="col-md-8">
+				<div class="col-lg-8">
 					<table class="table center">
 						<tr>
 							<td colspan="2"></td>
@@ -63,7 +62,7 @@ $index = $_GET['no'];
 							</tr>
 						</table>
 					</div>
-					<div class="col-md-2"></div>
+					<div class="col-lg-2"></div>
 				</div>
 
 				<?php 
@@ -105,9 +104,11 @@ $index = $_GET['no'];
 
 
 					</table>
-					<br/>
-					<input type="button" style="margin-right:90px;"class="btn btn-primary btn-sm pull-right" value="쓰기" onclick="location.href='boothInfo_post.php?mode=new';"/>
-
+					</div>
+					<div class="col-lg-11"></div>
+					<div class="col-lg-1">
+					<input type="button" class="btn btn-primary btn-sm pull-right" value="쓰기" onclick="location.href='boothInfo_post.php?mode=new';"/>
+					</div>
 					<?php
 				}
 				else if($type == 'Member'){	
@@ -210,9 +211,13 @@ $index = $_GET['no'];
 							?>
 
 						</table>
-						<br/>
-						<input type="button" style="margin-right:90px;"class="btn btn-primary btn-sm pull-right" value="쓰기" onclick="location.href='qna_post.php?mode=new';"/>
-
+					</div>	
+						
+					
+					<div class="col-lg-11"></div>
+					<div class="col-lg-1">
+						<input type="button" class="btn btn-primary btn-sm pull-right" value="쓰기" onclick="location.href='qna_post.php?mode=new';"/>
+					</div>
 
 
 
@@ -238,8 +243,7 @@ $index = $_GET['no'];
 					// alert( index.value);
 
 				</script>
-				<script src="//code.jquery.com/jquery.js"></script>
-				<script src="bootstrap/js/bootstrap.min.js"></script>
-				<script src="js/respond.js"></script>
-			</body>
-			</html>
+
+				<?php
+				include "_footer.php";
+				?>

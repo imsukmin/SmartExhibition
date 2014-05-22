@@ -1,9 +1,3 @@
-<!DOCTYPE html5>
-<head>
-<meta charset="UTF-8" lang="ko" http-equiv="" />
-<link rel="stylesheet" href="style.css"  />
-</head>
-
 <?php
 include "common.php";
 

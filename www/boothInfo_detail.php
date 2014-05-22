@@ -7,7 +7,6 @@ $row = $rst->fetch_assoc();
 
 ?>
 
-<div style="width:1000px; margin:20px auto;" class="container row">
 	<div class="panel panel-default" >
 		<div class="panel-heading">부스 관리 | 관리하고 싶은 부스를 등록하세요.</div>
 
@@ -96,8 +95,6 @@ $row = $rst->fetch_assoc();
 			</script>
 
 
-			<script src="//code.jquery.com/jquery.js"></script>
-			<script src="bootstrap/js/bootstrap.min.js"></script>
-			<script src="js/respond.js"></script>
-		</body>
-		</html>
+			<?php
+			include "_footer.php";
+			?>

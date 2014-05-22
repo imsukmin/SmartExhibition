@@ -1,102 +1,62 @@
 <?php
-include "_header.php";
-
-
+include "common.php";
 ?>
 
+<!DOCTYPE html5>
+<html>
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<link href="bootstrap-3.1.1-dist/css/bootstrap.css" rel="stylesheet" media="screen" title="no title" charset="utf-8"/>
+</head>
+<body>
+
 <form class="form-horizontal" action="memberJoin_ok.php" method="post">
+<div style="width:1000px; margin:20px auto;" class="container row">
 
-	<?php
-
-	
-	if($_GET['mode'] == 'correct'){
-		$index = $_GET['no'];
-		$rst = $conn->query("select * from `Member` where `index`='{$index}'");
-		$row = $rst->fetch_assoc();
-		?>
-
-		<div class="col-lg-3"></div>
-		<div class="col-lg-6">
-			<div class="form-group">
-				<input type="hidden" name="mode" value="correct" />
-				<input type="hidden" name="index" value="<?php echo $index;?>" />
-				<label class="control-label" for="id">ID</label>
-				<input class="form-control input-sm" type="text" name="id" id="id" value="<?php echo $row['id'];?>" >
-			</div>
-			<div class="form-group">
-				<label class="control-label" for="password">PW</label>
-				<input class="form-control input-sm" type="password" name="password" id="password" required="required">
-				<span class="help-block">영문, 숫자 포함 3~16 문자.</span>
-			</div>
-			<div class="form-group">
-				<label class="control-label" for="name">Name</label>
-				<input class="form-control input-sm" type="text" name="name" id="name" value="<?php echo $row['name'];?>">
-			</div>
-			<div class="form-group">
-				<label class="control-label" for="teamName">TeamName</label>
-				<input class="form-control input-sm" type="text" name="teamName" id="teamName" value="<?php echo $row['teamName'];?>">
-			</div>
-			<div class="form-group">
-				<label class="control-label" for="email">E-Mail</label>
-				<input class="form-control input-sm" type="text" name="email" id="email" value="<?php echo $row['email'];?>">
-			</div>
-			<div class="form-group">
-				<label class="control-label" for="phone">Cell Phone</label>
-				<input class="form-control input-sm" type="text" name="phone" id="phone" value="<?php echo $row['phone'];?>">
-				<span class="help-block">예) 01012345678</span>
-			</div>
-
-			<div class="form-actions">
-				<p align="center">
-					<input type="submit"  class="btn btn-primary btn-sm" value="수정" />
-					<input type="button" class="btn btn-primary btn-sm" onclick="location.href='board.php?type=Member';" value="돌아가기" /></th></tr>
-				</p>
-			</div>
+	<div class="col-lg-3"></div>
+	<div class="col-lg-6">
+		<div class="form-group">
+			<input type="hidden" name="mode" value="new" />
+			<label class="control-label" for="id">ID</label>
+			<input class="form-control input-sm" type="text" name="id" id="id" placeholder="ID" required="required">
 		</div>
-		<div class="col-lg-3"></div>
+		<div class="form-group">
+			<label class="control-label" for="password">PW</label>
+			<input class="form-control input-sm" type="password" name="password" id="password" placeholder="PW" required="required">
+			<span class="help-block">영문, 숫자 포함 3~16 문자.</span>
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="name">Name</label>
+			<input class="form-control input-sm" type="text" name="name" id="name" placeholder="Name" required="required">
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="teamName">TeamName</label>
+			<input class="form-control input-sm" type="text" name="teamName" id="teamName" placeholder="TeamName" required="required">
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="email">E-Mail</label>
+			<input class="form-control input-sm" type="text" name="email" id="email" placeholder="E-Mail" required="required">
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="phone">Cell Phone</label>
+			<input class="form-control input-sm" type="text" name="phone" id="phone" placeholder="Cell Phone" required="required">
+			<span class="help-block">예) 01012345678</span>
+		</div>
 
-		<?php
-	} else if($_GET['mode'] == 'delete'){
-		$index = $_GET['no'];
-		$rst = $conn->query("select * from `Member` where `index`='{$index}'");
-		$row = $rst->fetch_assoc();
-		?>
-
-		<div class="col-lg-4"></div>
-		<div class="col-lg-4">
-			<fieldset style="margin:150px auto; ">
-				<div class="form-group">
-					<input type="hidden" name="mode" value="delete" />
-					<input type="hidden" name="index" value="<?php echo $index;?>" />
-					<table>
-						<tr><th width="100px">ID</th><td width="300px"><?php echo $row['id'];?></td></tr>
-						<tr><th width="100px">Name</th><td width="300px"><?php echo $row['name'];?></td></tr>
-						<tr><th width="100px">TeamName</th><td width="300px"><?php echo $row['teamName'];?></td></tr>
-						<tr><th width="100px">E-Mail</th><td width="300px"><?php echo $row['email'];?></td></tr>
-						<tr><th width="100px">Cell Phone</th><td width="300px"><?php echo $row['phone'];?></td></tr>
-					</table>
-				</div>
-
-				<div class="form-actions">
-					<p align="center">
-						<input type="submit"  class="btn btn-primary btn-sm" value="삭제" />
-						<input type="button" class="btn btn-primary btn-sm" onclick="location.href='board.php?type=Member';" value="돌아가기" /></th></tr>
-					</p>
-				</div>
-				<div class="col-lg-4"></div>
-			</fieldset>
-
-
-			<?php
-		}
-		?>
-
+		<div class="form-actions">
+			<p align="center">
+				<input type="submit"  class="btn btn-primary btn-sm" value="가입" />
+				<input type="button" class="btn btn-primary btn-sm" onclick="location.href='login.php';" value="돌아가기" /></th></tr>
+			</p>
+		</div>
 	</div>
+	<div class="col-lg-3"></div>
+</div>
 </form>
 
-<?php
-if($_GET['mode'] == 'correct'){
-	?>
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
@@ -187,9 +147,10 @@ jQuery( function($) {
 		}
 	});
 });
-<?php
-}
-?>
+
 </script>
 
 
+<?php
+include "_footer.php";
+?>

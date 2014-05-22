@@ -1,5 +1,5 @@
 <?php
-include_once "_header.php";
+include "_header.php";
 ?>
 
 <form class="form-horizontal" action="boothInfo_post_ok.php" method="post" enctype='multipart/form-data'>
@@ -8,7 +8,6 @@ include_once "_header.php";
 	if($_GET['mode'] == 'new') {
 		?>
 
-		<div style="width:1000px; margin:20px auto;" class="container row">
 			<div class="panel panel-default" >
 				<div class="panel-heading">부스 관리 | 관리하고 싶은 부스를 등록하세요.</div>
 				<fieldset>
@@ -253,11 +252,15 @@ include_once "_header.php";
 								$('#pretty-input').val($(this).val().replace("C:\\fakepath\\", ""));
 							});
 						</script>
+
+						
 					</fieldset>
 				</div>
 			</div>
-		</form>
+		</div>
 
+	</form>
 	</div>
-</body>
-</html>
+<?php
+include "_footer.php";
+?>

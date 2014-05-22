@@ -7,7 +7,6 @@ include "_header.php";
 	if($_GET['mode'] == 'new') {
 		?>
 
-		<div style="width:1000px; margin:20px auto;" class="container row">
 			<div class="panel panel-default" >
 				<div class="panel-heading">질의응답 | 질문이 있으면 올려주세요.</div>
 				<fieldset>
@@ -46,6 +45,8 @@ include "_header.php";
 						</div>
 					</div>
 				</div>
+				</fieldset>
+				</div>
 				
 				<?php	
 
@@ -57,8 +58,6 @@ include "_header.php";
 				$row = $rst->fetch_assoc();
 				?>
 
-
-				<div style="width:1000px; margin:20px auto;" class="container row">
 					<div class="panel panel-default" >
 						<div class="panel-heading">질의응답 | 질문이 있으면 올려주세요.</div>
 						<fieldset>
@@ -102,14 +101,13 @@ include "_header.php";
 
 				</fieldset>
 			</div>
-		</div>
+		
 	</form>
+	</div>
 
 	<?php
-}?>
 
-<script src="//code.jquery.com/jquery.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="js/respond.js"></script>
-</body>
-</html>
+}
+include "_footer.php"
+?>
+

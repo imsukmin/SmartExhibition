@@ -6,7 +6,6 @@ $rst = $conn->query("select * from `QnA` where `index`='{$index}'");
 $row = $rst->fetch_assoc();
 
 ?>
-<div style="width:1000px; margin:20px auto;" class="container row">
 	<div class="panel panel-default" >
 		<div class="panel-heading">질의응답 | 질문이 있으면 올려주세요.</div>
 
@@ -53,8 +52,8 @@ $row = $rst->fetch_assoc();
 	}
 </script>
 
-<script src="//code.jquery.com/jquery.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="js/respond.js"></script>
-</body>
-</html>
+
+</div>
+<?php
+include "_footer.php";
+?>

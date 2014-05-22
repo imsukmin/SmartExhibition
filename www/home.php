@@ -1,29 +1,7 @@
-<body>
-
-	<?php	
-	include "common.php";
-
-
-if(!$_SESSION['_gamjachip_id']){ // 로그인이 되어있지 않은 경우 로그인 페이지로 이동함. 
-	?>
-
-	<script>location.replace('login.php');</script>
-	<?php
-} else {
-	include "_header.php";
-
-	$now = time();
-
-	if($now > $_SESSION['expire']) {
-		session_destroy();
-		?>
-		<script>location.replace('login.php');</script>
-		<?php
-	}
-	else {
-
-		?>
-		<div style="width:1000px; margin:20px auto;" class="container row">
+<?php	
+include "_header.php";
+?>
+		
 			<div class="col-md-4">
 				<div style="width:300px;height:250px;"class="panel panel-info">
 					<p style="margin-top:10px;"align="center">
@@ -71,14 +49,7 @@ if(!$_SESSION['_gamjachip_id']){ // 로그인이 되어있지 않은 경우 로�
 						</div>
 					</div>
 				</div>
-
-				<?php
-			}
-		}
-		?>
-		</div>
-	<script src="//code.jquery.com/jquery.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="js/respond.js"></script>
-</body>
-</html>
+			</div>
+				<?php 
+				include "_footer.php";
+				?>

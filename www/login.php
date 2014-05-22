@@ -1,9 +1,8 @@
-<!DOCTYPE html5>
-
 <?php	
 include "common.php";
-
 ?>
+
+<!DOCTYPE html5>
 
 <html>
 <head>
@@ -50,7 +49,7 @@ include "common.php";
 		<div class="form-actions">
 			<p align="center">
 			<button style="width:86px;" type="submit" class="btn btn-primary">LOGIN</button>
-			<input style="width:86px;" class="btn btn-primary" type="button" onclick="location.href='memberJoin.php?mode=new';" value="SIGN IN"/>
+			<input style="width:86px;" class="btn btn-primary" type="button" onclick="location.href='signIn.php';" value="SIGN IN"/>
 				
 			</p>
 			<!-- <button class="btn btn-primary" onclick="location.replace('memberJoin.php?mode=new');">SIGN IN</button> -->
@@ -63,9 +62,7 @@ include "common.php";
 	</fieldset>
 	
 </form>
-	
-<script src="//code.jquery.com/jquery.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="js/respond.js"></script>
-</body>
-</html>
+
+<?php
+include "_footer.php";
+?>
