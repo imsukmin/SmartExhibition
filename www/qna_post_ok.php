@@ -16,23 +16,31 @@ $type = $conn->real_escape_string($type);
 
 
 if($mode=='new'){
-		 $query = "insert into QnA (`title`,`writer`,`date`,`content`,`comment`,`hits`)
-		 values (	'$title','$writer',	'$date',	'$content',	'$comment',	'$hits');";
+	$query = "insert into QnA (`title`,`writer`,`date`,`content`,`comment`,`hits`)
+	values (	'$title','$writer',	'$date',	'$content',	'$comment',	'$hits');";
 }else if($mode =='correct'){
-			$query = "update `QnA` set 
-			`title`= '$title', 
-			`content`='$content', 
-			`writer`='$writer', 
-			`date`='$date',
-			`comment`= '$comment'
-			
+	$query = "update `QnA` set 
+	`title`= '$title', 
+	`content`='$content', 
+	`writer`='$writer', 
+	`date`='$date',
+	`comment`= '$comment'
+
 	
-			where `index`='$index';";
+	where `index`='$index';";
 }
 else if($mode =='delete'){
-		$index = $_GET['no'];
-		
-		$query = "delete from `QnA` where `index`='$index';";
+	$index = $_GET['no'];
+
+	$query = "delete from `QnA` where `index`='$index';";
+}
+
+else if($mode =='reple') {
+
+	$query = "update `QnA` set 
+	`comment`= '$comment'
+
+	where `index`='$index';";
 }
 // else if($mode == 'guest'){
 // 		 $query = "insert into QnA (`title`,`writer`,`date`,`content`,`comment`,`hits`)
