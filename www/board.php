@@ -68,6 +68,7 @@ $index = $_GET['no'];
 				<?php 
 			}else if($type == 'BoothInfo'){
 				$rst= $conn->query("select * from `BoothInfo`");
+				// $rst2=$conn->query("select * from `Member`");
 				?>
 
 
@@ -77,14 +78,17 @@ $index = $_GET['no'];
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
-								<th>NO</th>
-								<th style="width:100px">팀명</th>
+								<th style="width:100px;">NO</th>
+								<th style="width:200px">팀명</th>
 								<th style="width:500px">작품명</th>
 								<th style="width:100px">담당교수</th>
 							</tr>
 						</thead>
-
-						<?php
+				<?php
+				if($_SESSION['IDlevel']=='admin') {
+				
+				
+						
 						while($row = $rst->fetch_assoc()){
 							?>
 							<tbody>
@@ -99,7 +103,26 @@ $index = $_GET['no'];
 
 							<?php
 						}
-						?>
+
+				} else if($_SESSION['IDlevel']=='user') {
+					while($row = $rst->fetch_assoc()){
+							if($_SESSION['IDteamName']==$row['teamName']) {
+								?>
+								<tbody>
+								<tr>
+									<td><?php echo $row['index']?></td>
+									<td><?php echo $row['teamName']?></td>
+									<td><a href="boothInfo_detail.php?no=<?php echo $row['index']?>"><?php echo $row['productName']?></a></td>
+									<td><?php echo $row['professor']?></td>
+								</tr>
+								</tbody>
+								<?php
+							}
+						
+					}
+				}
+					
+				?>
 
 
 

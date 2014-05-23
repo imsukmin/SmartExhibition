@@ -34,7 +34,20 @@ include "common.php";
 		</div>
 		<div class="form-group">
 			<label class="control-label" for="teamName">TeamName</label>
-			<input class="form-control input-sm" type="text" name="teamName" id="teamName" placeholder="TeamName" required="required">
+			<select class="form-control" id="teamName" name="teamName" >
+			
+			<option value="notSelected">::선택하세요::</option>
+			<option value="etc">직접입력</option>
+			<?php
+			$rst= $conn->query("select * from `BoothInfo`");
+			while($row = $rst->fetch_assoc()){		
+			?>
+				<option value="<?php echo $row['teamName']?>"><?php echo $row['teamName']?></option>
+				<?php
+			}
+			?>
+			</select>
+			
 		</div>
 		<div class="form-group">
 			<label class="control-label" for="email">E-Mail</label>
@@ -56,6 +69,7 @@ include "common.php";
 	<div class="col-lg-3"></div>
 </div>
 </form>
+
 
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
