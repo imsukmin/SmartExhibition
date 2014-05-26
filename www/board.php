@@ -177,7 +177,6 @@ if($type == 'ExhibitionInfo'){
 										<th style="width:100px;">등급</th>
 										<th style="width:50px;"></th>
 										<th style="width:50px;"></th>
-										<th style="width:50px;"></th>
 
 
 									</tr>
@@ -196,20 +195,6 @@ if($type == 'ExhibitionInfo'){
 											<td><?php echo $row['teamName']?></td>
 											<td><?php echo $row['email']?></td>
 											<td><?php echo $row['level']?></td>
-											<?php
-
-											if($row['level']=='awaiter')  {
-												?>
-												<td><input type="button" class="btn btn-info btn-sm" value="승인" onclick="allowMember();"></td>	
-
-												<?php	
-											} else {
-												?>
-												<td></td>
-												<?php
-											}
-											?>
-
 											<td><input type="button" class="btn btn-info btn-sm" value="수정" onclick="location.href='memberJoin.php?mode=correct&no=<?php echo $row['index']?>';"></td>	
 											<td><input type="button" class="btn btn-info btn-sm" value="삭제" onclick="location.href='memberJoin.php?mode=delete&no=<?php echo $row['index']?>';"></td>
 
