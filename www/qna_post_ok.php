@@ -1,7 +1,10 @@
 <?php
 include "common.php";
 
-$index = $_POST['index'];
+// print_r($_POST);
+$editmode = $_POST['editmode'];
+
+// $index = $_POST['index'];
 $mode = $_GET['mode'];
 foreach($_POST as $key => $value) {
 	$$key = $value;
@@ -36,19 +39,36 @@ else if($mode =='delete'){
 }
 
 else if($mode =='reple') {
+	$index = $_POST['no'];
 
 	$query = "update `QnA` set 
 	`comment`= '$comment'
 
 	where `index`='$index';";
 }
+
+if($editmode == 'correct') {
+
+	$index = $_POST['no'];
+
+	$query = "update `QnA` set 
+	`comment`= '$comment'
+
+	where `index`='$index';";
+}
+
 // else if($mode == 'guest'){
 // 		 $query = "insert into QnA (`title`,`writer`,`date`,`content`,`comment`,`hits`)
 // 		 values (	'$title','$writer',	'$date',	'$content',	'$comment',	'$hits');";
 // // }
 // print($query);
 $conn->query($query); // query문 전송!
-echo "<script>location.replace('board.php?type=QnA');</script>";
+if($mode=='reple' || $editmode == 'correct') {
+	echo "<script>location.href='qna_detail.php?no=$index';</script>";
+}
+else {
+echo "<script>location.href='board.php?type=QnA';</script>";
+}
 // echo "<script>location.replace('qna_detail.php?no=" + $index + "');</script>";
 // else {							echo "<script>location.replace('admin_main.php?mode=board');</script>"; }
 ?>
