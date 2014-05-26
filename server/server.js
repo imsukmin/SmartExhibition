@@ -83,10 +83,10 @@ app.get('/checkHitCount', function(req, res){
 			res.send('query is not correct! query is ' + query + ' and error is ' + error);
 
 		} else {
-			checkStatus = JSON.stringify(result).substring(10,11)
+			checkStatus = JSON.parse(JSON.stringify(result));
 
-			if(checkStatus == '0'){
-				query = "INSERT INTO `gamjachip`.`visitors` (`index` ,`userID`, `checkin`) VALUES ( '" + index + "',  '" + userID + "', '" + time + "')";
+			if(checkStatus[0].count == '0'){
+				query = "INSERT INTO `gamjachip`.`visitors` (`index` ,`userID`, `checkIn`) VALUES ( '" + index + "',  '" + userID + "', '" + time + "')";
 
 				client.query(query, function ( error, result, fields ){
 					if(error){
@@ -267,7 +267,7 @@ app.get('/resetHitCount', function(req, res){
 				indexLength = JSON.parse(JSON.stringify(result));
 
 				for (var i = 1 ; i <= indexLength[0].count ; i++) {
-					query = "INSERT INTO `gamjachip`.`visitors` (`index`, `userID`, `checkin`) VALUES ('"+i+"', '', '');";
+					query = "INSERT INTO `gamjachip`.`visitors` (`index`, `userID`, `checkIn`) VALUES ('"+i+"', '', '');";
 					client.query(query, function ( error, result, fields ){
 						if(error){
 							res.send('query is not correct! query is ' + query + ' and error is ' + error);
