@@ -43,3 +43,4 @@ sftp-config.json
 
 # private - it must delete if project end
 BoothInfo.sql
+nfcTagIDList.txt

@@ -73,11 +73,12 @@ app.get('/checkHitCount', function(req, res){
 	handleDisconnect();
 	var index = req.query.index;
 	var userID = req.query.userID;
+	var time = req.query.time;
 
 	var query = "SELECT count(*) as count FROM `visitors` WHERE `index` = '" + index + "' and `userID` = '" + userID + "'";
 	var checkStatus;
 	// check userID existing
-	client.query(query, function( error, result, fields ){
+	client.query(query, function ( error, result, fields ){
 		if(error){
 			res.send('query is not correct! query is ' + query + ' and error is ' + error);
 
@@ -85,14 +86,14 @@ app.get('/checkHitCount', function(req, res){
 			checkStatus = JSON.stringify(result).substring(10,11)
 
 			if(checkStatus == '0'){
-				query = "INSERT INTO `gamjachip`.`visitors` (`index` ,`userID`) VALUES ( '" + index + "',  '" + userID + "')";
+				query = "INSERT INTO `gamjachip`.`visitors` (`index` ,`userID`, `checkin`) VALUES ( '" + index + "',  '" + userID + "', '" + time + "')";
 
-				client.query(query, function( error, result, fields ){
+				client.query(query, function ( error, result, fields ){
 					if(error){
 						res.send('query is not correct! query is ' + query + ' and error is ' + error);
 					} else {
-						query = "INSERT INTO `gamjachip`.`visitors` (`index` ,`userID`) VALUES ( '" + index + "',  '" + userID + "')";
-						res.send("Register it!!");
+
+						res.send("Register it!! index : " + index);
 					}
 				})
 			} else {
@@ -180,6 +181,106 @@ app.get('/BoothList', function(req, res){
 			res.send(result);
 		}
 		console.log(getDateTime() + ' BoothList Sended');
+	})
+});
+
+app.get('/registerNFC', function(req, res){
+	handleDisconnect();
+
+	var index = req.query.index;
+	var nfcID = req.query.nfcID;
+
+	res.set('Content-Type', 'text/html');
+
+	var query = "UPDATE  `gamjachip`.`BoothInfo` SET  `nfcTagId` =  '" + nfcID + "' WHERE  `BoothInfo`.`" + index + "` =1";
+
+	client.query(query, function ( error, result, fields ){
+		if(error){
+			res.send('query is not correct! query is ' + query + ' and error is ' + error);
+		} else {
+			res.send(result);
+		}
+		console.log(getDateTime() + ' BoothList Sended');
+	})
+});
+
+app.get('/setAPlevel', function(req, res){
+	handleDisconnect();
+
+	var index = req.query.index;
+	var aps1 = req.query.aps1;
+	var aps2 = req.query.aps2;
+	var aps3 = req.query.aps3;
+
+	res.set('Content-Type', 'text/html');
+
+	var query = "UPDATE  `gamjachip`.`BoothInfo` SET  `apLevel` =  '" + aps1+"/"+aps2+"/"+aps3+ "' WHERE  `BoothInfo`.`" + index + "` =1";
+
+	client.query(query, function ( error, result, fields ){
+		if(error){
+			res.send('query is not correct! query is ' + query + ' and error is ' + error);
+		} else {
+			res.send(result);
+		}
+		console.log(getDateTime() + ' BoothList Sended');
+	})
+});
+
+app.get('/checkinINFO', function(req, res){
+	handleDisconnect();
+
+
+	var userID = req.query.userID;
+
+	res.set('Content-Type', 'text/html');
+
+	var query = "SELECT * FROM  `visitors` WHERE  `userID` =  '" + userID + "'";
+
+	client.query(query, function ( error, result, fields ){
+		if(error){
+			res.send('query is not correct! query is ' + query + ' and error is ' + error);
+		} else {
+			res.send(result);
+		}
+		console.log(getDateTime() + ' checkinINFO Sended');
+	})
+});
+
+app.get('/resetHitCount', function(req, res){
+	handleDisconnect();
+	res.set('Content-Type', 'text/html');	
+
+	var query = "TRUNCATE TABLE `visitors`";
+	var indexLength;
+
+	client.query(query, function ( error, result, fields ){
+		if(error){
+			res.send('query is not correct! query is ' + query + ' and error is ' + error);
+		} else {
+			query = "select Count(`index`) as count from `BoothInfo;";
+
+			client.query(query, function ( error, result, fields ){
+			if(error){
+				res.send('query is not correct! query is ' + query + ' and error is ' + error);
+			} else {
+
+				indexLength = JSON.parse(JSON.stringify(result));
+
+				for (var i = 1 ; i <= indexLength[0].count ; i++) {
+					query = "INSERT INTO `gamjachip`.`visitors` (`index`, `userID`, `checkin`) VALUES ('"+i+"', '', '');";
+					client.query(query, function ( error, result, fields ){
+						if(error){
+							res.send('query is not correct! query is ' + query + ' and error is ' + error);
+						}
+					})
+				}
+			}
+		})
+
+		res.send("Reset Complete!");
+
+		console.log(getDateTime() + ' reset Hit Count.');
+		}
 	})
 });
 
