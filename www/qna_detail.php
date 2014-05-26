@@ -11,21 +11,25 @@ $row = $rst->fetch_assoc();
 <div class="panel panel-default" >
 	<div class="panel-heading">질의응답 | 질문이 있으면 올려주세요.</div>
 
-	<div class="col-md-12">
+	<div class="col-lg-12">
 		<form class="form-horizontal" action="qna_post_ok.php" method="post" >
 			<table class="table table-striped table-hover ">
 				<thead>
 
 					<tr>
-						<td class="col-lg-10"><strong>제목</strong>&nbsp;&nbsp;&nbsp;<?php echo $row['title']; ?></td>
-						<td class="col-lg-2"><strong>작성자</strong>&nbsp;&nbsp;&nbsp;<?php echo $row['writer']; ?></td>
+						<td colspan="3" class="col-lg-12"><strong>제목</strong>&nbsp;&nbsp;&nbsp;<?php echo $row['title']; ?></td>
 					</tr>
+					<tr>
+						<td colspan="3" class="col-lg-12"><strong>작성자</strong>&nbsp;&nbsp;&nbsp;<?php echo $row['writer']; ?></td>
+
+					</tr>		
+
 				</thead>
 				<tbody>
 					<input type="hidden" name="no" value="<?php echo $row['index'];?>">
-					<input type="hidden" name="mode" value="reple">
+					<!-- <input type="hidden" name="mode" value="reple"> -->
 					<tr>
-						<td colspan="2"><strong>내용</strong>&nbsp;&nbsp;&nbsp;<?php echo $row['content']; ?></td>
+						<td colspan="3"><strong>내용</strong>&nbsp;&nbsp;&nbsp;<?php echo $row['content']; ?></td>
 					</tr>
 					<?php
 					if($_SESSION['IDlevel']=='admin') {
@@ -34,25 +38,33 @@ $row = $rst->fetch_assoc();
 
 							?>
 							<tr>
-								<th colspan="2">답변을 달아주세요.</th>
+								<th colspan="3">답변을 달아주세요.</th>
 							</tr>
 
 							<tr>
-								<td class="col-lg-10">
+								<td class="col-lg-11">
+									<input type="hidden" name="editmode" value="correct">
+
 									<textarea style="resize:none;" name="comment" class="form-control" id="comment" placeholder="답변을 달아주세요." rows="3"></textarea></td>
 									<td class="col-lg-2"><input type="submit" value="댓글달기" class="btn btn-primary btn-sm" ></td>
 								</tr>
 								<?php
-							
+								
 
 						} else {
 							?>
-							<input type="hidden" name="editmode" value="correct">
+							
 							<tr>
+								
 								<td class="col-lg-10"><strong>답변</strong>&nbsp;&nbsp;&nbsp;<?php echo $row['comment']; ?></td>
-								<td class="col-lg-2"><input type="button" value="수정하기" onclick="show('correct');" class="btn btn-primary btn-sm" ></td>
+								<td class="col-lg-1"><input type="button" value="삭제하기" onclick="location.replace('qna_post_ok.php?no=<?php echo $row['index']?>&editmode=delete');" class="btn btn-primary btn-sm" ></td>
+								<input type="hidden" name="editmode" value="correct">
+
+								<td class="col-lg-1"><input type="button" value="수정하기" onclick="show('correct');" class="btn btn-primary btn-sm" >
+
 
 							</tr>
+							
 							<tr id="correct" style="display:none;">
 								<td class="col-lg-10">
 								<!-- <td id="correct" style="display: none;"> -->
