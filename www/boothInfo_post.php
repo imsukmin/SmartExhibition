@@ -18,7 +18,7 @@ include "_header.php";
 						<input type="hidden" name="type" value="BoothInfo"/> 
 						<label for="teamName" class="col-lg-2 control-label">팀명</label>
 						<div class="col-lg-10">
-							<input type="text" name="teamName" class="form-control" id="teamName" placeholder="팀명" style="width:500px;" required="required">
+							<input type="text" name="teamName" class="form-control" id="teamName" placeholder="팀명" value="<?php echo $_SESSION['IDteamName']?>"style="width:500px;" required="required">
 						</div>
 					</div>
 					<div class="form-group">
@@ -238,7 +238,7 @@ include "_header.php";
 							</div>
 							<div class="col-lg-4"></div>
 							<div class="col-lg-1">
-								<input type="button" class="btn btn-primary btn-sm" onclick="location.replace('boothInfo_detail.php?no=<?php echo $row['index']?>');" value="돌아가기" />
+								<input type="button" class="btn btn-primary btn-sm" onclick="location.href='boothInfo_detail.php?no=<?php echo $row['index']?>';" value="돌아가기" />
 							</div>
 
 							<?php
@@ -249,7 +249,7 @@ include "_header.php";
 						<script src="js/respond.js"></script>
 						<script type="text/javascript">
 							$('input[id=myFile]').change(function() {
-								$('#pretty-input').val($(this).val().replace("C:\\fakepath\\", ""));
+								$('#pretty-input').val($(this).val().href="C:\\fakepath\\", ""));
 							});
 						</script>
 

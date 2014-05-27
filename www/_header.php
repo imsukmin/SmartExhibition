@@ -26,7 +26,7 @@ include "common.php";
 if(!$_SESSION['_gamjachip_id']){ // 로그인이 되어있지 않은 경우 로그인 페이지로 이동함. 
 	?>
 
-	<script>location.replace('login.php');</script>
+	<script>location.href='login.php';</script>
 	<?php
 } else {
 	// include "_header.php";
@@ -36,7 +36,7 @@ if(!$_SESSION['_gamjachip_id']){ // 로그인이 되어있지 않은 경우 로�
 	if($now > $_SESSION['expire']) {
 		session_destroy();
 		?>
-		<script>location.replace('login.php');</script>
+		<script>location.href='login.php';</script>
 		<?php
 	} else {
 

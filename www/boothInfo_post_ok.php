@@ -120,7 +120,7 @@ else if($mode =='delete'){
 // echo $dest;
 // echo $_FILES["myFile"]["name"];
 $conn->query($query); // query문 전송!
-echo "<script>location.replace('board.php?type=BoothInfo');</script>";
+echo "<script>location.href='board.php?type=BoothInfo';</script>";
 // echo "<script>location.replace('qna_detail.php?no=" + $index + "');</script>";
 // else {             echo "<script>location.replace('admin_main.php?mode=board');</script>"; }
 ?>

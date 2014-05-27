@@ -108,40 +108,7 @@ if($type == 'ExhibitionInfo'){
 						while($row = $rst->fetch_assoc()){
 							if($_SESSION['IDteamName']==$row['teamName']) {
 								?>
-								<tbody>
-									<tr>
-										<td>
-											<strong>작품명 </strong><?php echo $row['productName']; ?></td>
-											<td><strong>팀명 </strong> <?php echo $row['teamName']; ?></td>
-										</tr>
-										<tr>
-											<td><strong>팀원 </strong><?php echo $row['member']; ?></td>
-											<td><strong>담당교수 </strong><?php echo $row['professor']; ?></td>
-										</tr>
-										<tr>
-											<td colspan="2"><strong>프로젝트 개요 </strong><?php echo $row['outline']; ?></td>
-										</tr>
-										<tr>
-											<td colspan="2">
-												<strong>프로젝트 요약 </strong><?php echo $row['summary']; ?></td>
-											</tr>
-											<tr>
-												<td colspan="2">
-													<strong>타겟머신 및 운영체제 </strong><?php echo $row['target']; ?></td>
-												</tr>
-												<tr>
-													<td colspan="2"><strong>홈페이지 </strong><a href="<?php echo $row['homepage']; ?>" target="_blank"><?php echo $row['homepage']; ?></a>
-													</td>
-												</tr>
-												<tr><td colspan="2"><strong>브로셔이미지 </strong></td>
-												</tr>
-												<div class="thumbnail">
-													<tr>
-														<td colspan="2"><img src="<?php echo $row['brochure']; ?>"<br /></td>
-													</tr>
-												</div>
-
-											</tbody>
+								<script>location.href="boothInfo_detail.php?no=<?php echo $row['index']?>;"</script>
 											<?php
 										}
 

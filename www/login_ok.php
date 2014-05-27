@@ -33,20 +33,20 @@ if($loginCheck['cnt'] > 0){
 
 	$_SESSION['IDteamName'] = $rows['teamName'];
 
-	echo "<script>location.replace('home.php');</script>";
+	echo "<script>location.href='home.php';</script>";
 	// if($_SESSION['level'] == 'admin') {
-	// 	echo "<script>location.replace('home.php');</script>";
+	// 	echo "<script>location.href='home.php';</script>";
 
 	// }
 	// else if($_SESSION['level']== 'user') {
-	// 	echo "<script>location.replace('home.php');</script>";
+	// 	echo "<script>location.href='home.php';</script>";
 	// }
 } 
 else{
 	?>
 	<script>alert("로그인에 실패하였습니다. \n아이디와 암호를 확인해주세요.");</script>	
 	<?php
-	echo "<script>location.replace('login.php');</script>";
+	echo "<script>location.href='login.php';</script>";
 	
 }
 ?>

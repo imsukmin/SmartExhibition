@@ -71,13 +71,13 @@ $row = $rst->fetch_assoc();
 							</div>
 							
 								<div class="col-lg-2">
-								<input type="button" class="btn btn-primary btn-sm" value="수정" onclick="location.replace('boothInfo_post.php?mode=correct&no=<?php echo $row['index']?>');"/>
+								<input type="button" class="btn btn-primary btn-sm" value="수정" onclick="location.href='boothInfo_post.php?mode=correct&no=<?php echo $row['index']?>';"/>
 								<input type="button" class="btn btn-primary btn-sm" value="삭제" onclick="deleteBoard();"/>
 
 								</div>
 								<div class="col-lg-9"></div>
 								<div class="col-lg-1">
-								<input type="button" class="btn btn-primary btn-sm" onclick="location.replace('board.php?type=BoothInfo');" value="돌아가기" />
+								<input type="button" class="btn btn-primary btn-sm" onclick="location.href='board.php?type=BoothInfo';" value="돌아가기" />
 								</div>
 							</div>
 							</div>
