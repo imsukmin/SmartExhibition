@@ -263,15 +263,7 @@ if($type == 'ExhibitionInfo'){
 
 				</div>
 
-				<script type="text/javascript" >
-					function allowMember() {
-						var conf = confirm("정말로 회원을 승인하시겠습니까?");
-						if(conf==true) {
-
-							location.href='member_allow.php?no='+'';
-						}
-					}
-				</script>
+				
 				<script language="javascript">
 					var index = document.getElementsByName("no");
 					// alert( index.value);

@@ -61,10 +61,38 @@ include "_header.php";
 			<label class="control-label" for="name">Name</label>
 			<input class="form-control input-sm" type="text" name="name" id="name" value="<?php echo $row['name'];?>">
 		</div>
+		
 		<div class="form-group">
 			<label class="control-label" for="teamName">TeamName</label>
-			<input class="form-control input-sm" type="text" name="teamName" id="teamName" value="<?php echo $row['teamName'];?>">
+			<!-- <input class="form-control input-sm" type="text" name="teamName" value="<?php echo $row['teamName'];?>"> -->
+
+			<select class="form-control" id="teamName" name="teamName" >
+			
+			<option value="notSelected">::선택하세요::</option>
+			<option value="etc">직접입력</option>
+			<?php
+			$rst = $conn->query("select * from `Member` where `index`='{$index}'");
+			$row = $rst->fetch_assoc();
+			$rst2 = $conn->query("select * from `BoothInfo`");
+			while($row2 = $rst2->fetch_assoc()) {	
+			
+				if($row['teamName']==$row2['teamName']) {
+					?>
+					<option selected="selected"><?php echo $row['teamName']?></option>
+					<?php
+				}
+				else {
+			?>
+				<option value="<?php echo $row2['teamName']?>"><?php echo $row2['teamName']?></option>
+				<?php
+			}
+		}
+	
+			?>
+			</select>
+			
 		</div>
+
 		<div class="form-group">
 			<label class="control-label" for="email">E-Mail</label>
 			<input class="form-control input-sm" type="text" name="email" id="email" value="<?php echo $row['email'];?>">
