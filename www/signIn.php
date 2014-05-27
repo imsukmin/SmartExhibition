@@ -13,63 +13,78 @@ include "common.php";
 </head>
 <body>
 
-<form class="form-horizontal" action="memberJoin_ok.php" method="post">
-<div style="width:1000px; margin:20px auto;" class="container row">
+	<form class="form-horizontal" action="memberJoin_ok.php" method="post">
+		<div style="width:1000px; margin:20px auto;" class="container row">
 
-	<div class="col-lg-3"></div>
-	<div class="col-lg-6">
-		<div class="form-group">
-			<input type="hidden" name="mode" value="new" />
-			<label class="control-label" for="id">ID</label>
-			<input class="form-control input-sm" type="text" name="id" id="id" placeholder="ID" required="required">
+			<div class="col-lg-3"></div>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<input type="hidden" name="mode" value="new" />
+					<label class="control-label" for="id">ID</label>
+					<input class="form-control input-sm" type="text" name="id" id="id" placeholder="ID" required="required">
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="password">PW</label>
+					<input class="form-control input-sm" type="password" name="password" id="password" placeholder="PW" required="required">
+					<span class="help-block">영문, 숫자 포함 3~16 문자.</span>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="name">Name</label>
+					<input class="form-control input-sm" type="text" name="name" id="name" placeholder="Name" required="required">
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="teamName">TeamName</label>
+					<select class="form-control" id="teamName" name="teamName" onchange="insertInput(this.value)">
+
+						<option value="notSelected">::선택하세요::</option>
+						<option value="etc">직접입력</option>
+						<?php
+						$rst= $conn->query("select * from `BoothInfo`");
+						while($row = $rst->fetch_assoc()){		
+							?>
+							<option value="<?php echo $row['teamName']?>"><?php echo $row['teamName']?></option>
+							<?php
+						}
+						?>
+					</select>
+					<input class="form-control input-sm" type="text" name="teamName" id="input"  placeholder="직접입력을 선택했을 때만, 내용을 넣어주세요.">
+
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="email">E-Mail</label>
+					<input class="form-control input-sm" type="text" name="email" id="email" placeholder="E-Mail" required="required">
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="phone">Cell Phone</label>
+					<input class="form-control input-sm" type="text" name="phone" id="phone" placeholder="Cell Phone" required="required">
+					<span class="help-block">예) 01012345678</span>
+				</div>
+
+				<div class="form-actions">
+					<p align="center">
+						<input type="submit"  class="btn btn-primary btn-sm" value="가입" />
+						<input type="button" class="btn btn-primary btn-sm" onclick="location.href='login.php';" value="돌아가기" /></th></tr>
+					</p>
+				</div>
+			</div>
+			<div class="col-lg-3"></div>
 		</div>
-		<div class="form-group">
-			<label class="control-label" for="password">PW</label>
-			<input class="form-control input-sm" type="password" name="password" id="password" placeholder="PW" required="required">
-			<span class="help-block">영문, 숫자 포함 3~16 문자.</span>
-		</div>
-		<div class="form-group">
-			<label class="control-label" for="name">Name</label>
-			<input class="form-control input-sm" type="text" name="name" id="name" placeholder="Name" required="required">
-		</div>
-		<div class="form-group">
-			<label class="control-label" for="teamName">TeamName</label>
-			<select class="form-control" id="teamName" name="teamName" >
-			
-			<option value="notSelected">::선택하세요::</option>
-			<option value="etc">직접입력</option>
-			<?php
-			$rst= $conn->query("select * from `BoothInfo`");
-			while($row = $rst->fetch_assoc()){		
-			?>
-				<option value="<?php echo $row['teamName']?>"><?php echo $row['teamName']?></option>
-				<?php
+	</form>
+
+	<script type="text/javascript">
+		function insertInput(str) {
+			if (str != "etc") {
+				document.getElementById("input").value = str;
+				document.getElementById("input").readOnly = true;
+				document.getElementById("input").style.background = "#DFDFDF";
+			} else {
+				document.getElementById("input").value = "";
+				document.getElementById("input").readOnly = false;
+				document.getElementById("input").style.background = "#FFFFFF";
+				document.getElementById("input").focus();
 			}
-			?>
-			</select>
-			
-		</div>
-		<div class="form-group">
-			<label class="control-label" for="email">E-Mail</label>
-			<input class="form-control input-sm" type="text" name="email" id="email" placeholder="E-Mail" required="required">
-		</div>
-		<div class="form-group">
-			<label class="control-label" for="phone">Cell Phone</label>
-			<input class="form-control input-sm" type="text" name="phone" id="phone" placeholder="Cell Phone" required="required">
-			<span class="help-block">예) 01012345678</span>
-		</div>
-
-		<div class="form-actions">
-			<p align="center">
-				<input type="submit"  class="btn btn-primary btn-sm" value="가입" />
-				<input type="button" class="btn btn-primary btn-sm" onclick="location.href='login.php';" value="돌아가기" /></th></tr>
-			</p>
-		</div>
-	</div>
-	<div class="col-lg-3"></div>
-</div>
-</form>
-
+		} 
+	</script>
 
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>

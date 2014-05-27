@@ -39,7 +39,7 @@ include "_header.php";
 						<option selected="selected">awaiter</option>
 						<option>user</option>
 						<option >admin</option>
-					<?php
+						<?php
 					} else if($row['level']=='user') {
 						?>
 						<option>awaiter</option>
@@ -51,112 +51,126 @@ include "_header.php";
 						<option>awaiter</option>
 						<option>user</option>
 						<option selected="selected">admin</option>
-					<?php
+						<?php
 					}
 					?>
-			</select>
-		</div>
+				</select>
+			</div>
 
-		<div class="form-group">
-			<label class="control-label" for="name">Name</label>
-			<input class="form-control input-sm" type="text" name="name" id="name" value="<?php echo $row['name'];?>">
-		</div>
-		
-		<div class="form-group">
-			<label class="control-label" for="teamName">TeamName</label>
-			<!-- <input class="form-control input-sm" type="text" name="teamName" value="<?php echo $row['teamName'];?>"> -->
-
-			<select class="form-control" id="teamName" name="teamName" >
-			
-			<option value="notSelected">::선택하세요::</option>
-			<option value="etc">직접입력</option>
-			<?php
-			$rst = $conn->query("select * from `Member` where `index`='{$index}'");
-			$row = $rst->fetch_assoc();
-			$rst2 = $conn->query("select * from `BoothInfo`");
-			while($row2 = $rst2->fetch_assoc()) {	
-			
-				if($row['teamName']==$row2['teamName']) {
-					?>
-					<option selected="selected"><?php echo $row['teamName']?></option>
-					<?php
-				}
-				else {
-			?>
-				<option value="<?php echo $row2['teamName']?>"><?php echo $row2['teamName']?></option>
-				<?php
-			}
-		}
-	
-			?>
-			</select>
-			
-		</div>
-
-		<div class="form-group">
-			<label class="control-label" for="email">E-Mail</label>
-			<input class="form-control input-sm" type="text" name="email" id="email" value="<?php echo $row['email'];?>">
-		</div>
-		<div class="form-group">
-			<label class="control-label" for="phone">Cell Phone</label>
-			<input class="form-control input-sm" type="text" name="phone" id="phone" value="<?php echo $row['phone'];?>">
-			<span class="help-block">예) 01012345678</span>
-		</div>
-
-		<div class="form-actions">
-			<p align="center">
-				<input type="submit"  class="btn btn-primary btn-sm" value="수정" />
-				<input type="button" class="btn btn-primary btn-sm" onclick="location.href='board.php?type=Member';" value="돌아가기" /></th></tr>
-			</p>
-		</div>
-	</div>
-	<div class="col-lg-3"></div>
-
-	<?php
-} else if($_GET['mode'] == 'delete'){
-	$index = $_GET['no'];
-	$rst = $conn->query("select * from `Member` where `index`='{$index}'");
-	$row = $rst->fetch_assoc();
-	?>
-
-	<div class="col-lg-4"></div>
-	<div class="col-lg-4">
-		<fieldset style="margin:150px auto; ">
 			<div class="form-group">
-				<input type="hidden" name="mode" value="delete" />
-				<input type="hidden" name="index" value="<?php echo $index;?>" />
-				<table>
-					<tr><th width="100px">ID</th><td width="300px"><?php echo $row['id'];?></td></tr>
-					<tr><th width="100px">Name</th><td width="300px"><?php echo $row['name'];?></td></tr>
-					<tr><th width="100px">TeamName</th><td width="300px"><?php echo $row['teamName'];?></td></tr>
-					<tr><th width="100px">E-Mail</th><td width="300px"><?php echo $row['email'];?></td></tr>
-					<tr><th width="100px">Cell Phone</th><td width="300px"><?php echo $row['phone'];?></td></tr>
-				</table>
+				<label class="control-label" for="name">Name</label>
+				<input class="form-control input-sm" type="text" name="name" id="name" value="<?php echo $row['name'];?>">
+			</div>
+
+			<div class="form-group">
+				<label class="control-label" for="teamName">TeamName</label>
+				<!-- <input class="form-control input-sm" type="text" name="teamName" value="<?php echo $row['teamName'];?>"> -->
+
+				<select class="form-control" id="teamName" name="teamName" onchange="insertInput(this.value)">
+
+					<option value="notSelected">::선택하세요::</option>
+					<option value="etc">직접입력</option>
+					<?php
+					$rst = $conn->query("select * from `Member` where `index`='{$index}'");
+					$row = $rst->fetch_assoc();
+					$rst2 = $conn->query("select * from `BoothInfo`");
+					while($row2 = $rst2->fetch_assoc()) {	
+
+						if($row['teamName']==$row2['teamName']) {
+							?>
+							<option selected="selected"><?php echo $row['teamName']?></option>
+							<?php
+						}
+						else {
+							?>
+							<option value="<?php echo $row2['teamName']?>"><?php echo $row2['teamName']?></option>
+							<?php
+						}
+					}
+					?>
+				</select>
+				<input class="form-control input-sm" type="text" name="teamName" id="input"  value="<?php echo $row['teamName']?>" placeholder="직접입력을 선택했을 때만, 내용을 넣어주세요.">
+				
+			</div>
+
+			<div class="form-group">
+				<label class="control-label" for="email">E-Mail</label>
+				<input class="form-control input-sm" type="text" name="email" id="email" value="<?php echo $row['email'];?>">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="phone">Cell Phone</label>
+				<input class="form-control input-sm" type="text" name="phone" id="phone" value="<?php echo $row['phone'];?>">
+				<span class="help-block">예) 01012345678</span>
 			</div>
 
 			<div class="form-actions">
 				<p align="center">
-					<input type="submit"  class="btn btn-primary btn-sm" value="삭제" />
+					<input type="submit"  class="btn btn-primary btn-sm" value="수정" />
 					<input type="button" class="btn btn-primary btn-sm" onclick="location.href='board.php?type=Member';" value="돌아가기" /></th></tr>
 				</p>
 			</div>
-			<div class="col-lg-4"></div>
-		</fieldset>
-
+		</div>
+		<div class="col-lg-3"></div>
 
 		<?php
-	}
-	?>
+	} else if($_GET['mode'] == 'delete'){
+		$index = $_GET['no'];
+		$rst = $conn->query("select * from `Member` where `index`='{$index}'");
+		$row = $rst->fetch_assoc();
+		?>
 
-</div>
+		<div class="col-lg-4"></div>
+		<div class="col-lg-4">
+			<fieldset style="margin:150px auto; ">
+				<div class="form-group">
+					<input type="hidden" name="mode" value="delete" />
+					<input type="hidden" name="index" value="<?php echo $index;?>" />
+					<table>
+						<tr><th width="100px">ID</th><td width="300px"><?php echo $row['id'];?></td></tr>
+						<tr><th width="100px">Name</th><td width="300px"><?php echo $row['name'];?></td></tr>
+						<tr><th width="100px">TeamName</th><td width="300px"><?php echo $row['teamName'];?></td></tr>
+						<tr><th width="100px">E-Mail</th><td width="300px"><?php echo $row['email'];?></td></tr>
+						<tr><th width="100px">Cell Phone</th><td width="300px"><?php echo $row['phone'];?></td></tr>
+					</table>
+				</div>
+
+				<div class="form-actions">
+					<p align="center">
+						<input type="submit"  class="btn btn-primary btn-sm" value="삭제" />
+						<input type="button" class="btn btn-primary btn-sm" onclick="location.href='board.php?type=Member';" value="돌아가기" /></th></tr>
+					</p>
+				</div>
+				<div class="col-lg-4"></div>
+			</fieldset>
+
+
+			<?php
+		}
+		?>
+
+	</div>
 </form>
 
-<?php
-if($_GET['mode'] == 'correct'){
-	?>
+<script type="text/javascript">
+	function insertInput(str) {
+		if (str != "etc") {
+			document.getElementById("input").value = str;
+			document.getElementById("input").readOnly = true;
+			document.getElementById("input").style.background = "#DFDFDF";
+		} else {
+			document.getElementById("input").value = "";
+			document.getElementById("input").readOnly = false;
+			document.getElementById("input").style.background = "#FFFFFF";
+			document.getElementById("input").focus();
+		}
+	} 
+</script>
 
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script>
+<?php 
+if($_GET['mode'] == 'correct') {
+?>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
 // <![CDATA[
 jQuery( function($) {
 
@@ -244,9 +258,9 @@ jQuery( function($) {
 		}
 	});
 });
+
+</script>
 <?php
 }
 ?>
-</script>
-
 
