@@ -192,7 +192,7 @@ app.get('/registerNFC', function(req, res){
 
 	res.set('Content-Type', 'text/html');
 
-	var query = "UPDATE  `gamjachip`.`BoothInfo` SET  `nfcTagId` =  '" + nfcID + "' WHERE  `BoothInfo`.`" + index + "` =1";
+	var query = "UPDATE  `gamjachip`.`BoothInfo` SET  `nfcTagId` =  '" + nfcID + "' WHERE  `BoothInfo`.`index` =" + index;
 
 	client.query(query, function ( error, result, fields ){
 		if(error){
@@ -200,7 +200,7 @@ app.get('/registerNFC', function(req, res){
 		} else {
 			res.send(result);
 		}
-		console.log(getDateTime() + ' BoothList Sended');
+		console.log(getDateTime() + ' registered NFC query is : ' + query);
 	})
 });
 
