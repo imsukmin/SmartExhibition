@@ -41,20 +41,35 @@ include "_header.php";
 						</div>
 					</div>
 				</div>
-
+				<?php
+				$rst= $conn->query("select * from `ExhibitionInfo`");
+				$row = $rst->fetch_assoc();
+				?>
 				<div class="col-md-10">
 				<div style="width:900px;height:250px;"class="panel panel-success">
 						<div class="panel-heading">
-							<div class="panel-title" style="font-weight:bold">한성대 컴퓨터공학과 설계프로젝트 전시회</div>
+							<div class="panel-title" style="font-weight:bold"><?php echo $row['title']; ?></div>
 						</div>
 						<div class="panel-body">
 							<ul style="list-style:none;">
+							<?php
+							
+							if($_SESSION['IDlevel']=='admin') {
+							?>
 								<li style="text-align:right;"><a href="board.php?type=ExhibitionInfo">더보기<span class="glyphicon glyphicon-chevron-right"></span></a></li>
 								<br/>
-								<li><strong>대상:</strong> 한성대 컴퓨터공학과 4학년 학생</li>
-								<li><strong>날짜:</strong> 2014년 06월 05일</li>
-								<li><strong>장소:</strong> 한성대 미래관 DLC </li>
-								<li><strong>전시회 소개:</strong> 한성대학교 컴퓨터공학과 4학년 학생들이 1학기동안 준비한 소프트웨어 결과물들을 볼 수 있습니다.</li>
+							<?php
+							} else {
+							?>
+							<br/>
+							<?php
+
+							}
+							?>
+								<li><strong>대상:</strong>&nbsp;&nbsp;<?php echo $row['host']; ?></li>
+								<li><strong>날짜:</strong>&nbsp;&nbsp;<?php echo $row['date']; ?></li>
+								<li><strong>장소:</strong>&nbsp;&nbsp;<?php echo $row['place']; ?></li>
+								<li><strong>전시회 소개:</strong>&nbsp;&nbsp;<?php echo $row['summary']; ?></li>
 							</ul>
 						</div>
 					</div>

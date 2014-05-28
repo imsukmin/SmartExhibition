@@ -20,44 +20,46 @@ if($type == 'ExhibitionInfo'){
 
 		</div>
 		<div class="panel-content">
-			<div class="col-lg-2">
+			<div class="col-lg-1">
 			</div>
-			<div class="col-lg-8">
+			<div class="col-lg-10">
 				<table class="table center">
-					<tr>
-						<td colspan="2"></td>
 						<tr>
-							<th style="width:120px;">전시회 이름</th>
+						<td colspan="2"></td>
+						</tr>
+
+						<tr>
+							<th style="width:150px;">전시회 이름</th>
 							<td><?php echo $row['title']?></td>
 						</tr>
 
 						<tr>
-							<th style="width:120px;">전시회 주최</th>
+							<th style="width:150px;">전시회 주최</th>
 							<td><?php echo $row['host']?></td>
 						</tr>
 						<tr>
-							<th style="width:120px;">날짜</th>
+							<th style="width:150px;">날짜</th>
 							<td><?php echo $row['date']?></td>
 						</tr>
 						<tr>
-							<th style="width:120px;">장소</th>
+							<th style="width:150px;">장소</th>
 							<td><?php echo $row['place']?></td>
 						</tr>
 						<tr>
-							<th style="width:120px;">전시회 개요</th>
+							<th style="width:150px;">전시회 개요</th>
 							<td><?php echo $row['summary']?></td>
 						</tr>
 						<tr>
-							<th style="width:120px;">전시회 구성</th>
+							<th style="width:150px;">전시회 구성</th>
 							<td><?php echo $row['outline']?></td>
 
 						</tr>
 						<tr>
-							<th style="width:120px;">전시회 구조</th>
-							<td><?php echo $row['map']?></td>
+							<th style="width:150px;">전시회 구조</th>
+							<td><img src="images/seatingChart.jpg"></td>
 						</tr>
 						<tr>
-							<th style="width:120px;">홈페이지</th>
+							<th style="width:150px;">홈페이지</th>
 							<td><a href="<?php echo $row['homepage']?>" target="_blank"><?php echo $row['homepage']?></a></td>
 						</tr>
 					</table>
