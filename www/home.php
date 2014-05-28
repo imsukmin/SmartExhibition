@@ -15,18 +15,28 @@ include "_header.php";
 					</div>
 				</div>
 				<div class="col-md-8">
-					<div style="width:580px;height:250px;"class="panel panel-primary">
+					<div style="width:580px;height:250px; overflow:scroll;" class="panel panel-primary">
 						<div class="panel-heading">
 							<div class="panel-title" style="font-weight:bold">부스 관리자 리스트</div>
 						</div>
 						<div class="panel-body">
-							<ul style="list-style:none;">
+							<ul style="list-style:none; padding-left:5px;">
+							<?php
+							if($_SESSION['IDlevel']=='admin') {
+							?>
 								<li style="text-align:right;"><a href="board.php?type=BoothInfo">더보기<span class="glyphicon glyphicon-chevron-right"></span></a></li>
-								<br/>
-								<li><span class="glyphicon glyphicon-hand-right"></span>&nbsp;Never Forgotten 영한사전</li>
-								<li><span class="glyphicon glyphicon-hand-right"></span>&nbsp;Game Checker</li>
-								<li><span class="glyphicon glyphicon-hand-right"></span>&nbsp;PASS(Proximity-based Advertisement System and Service)</li>
-								<li><span class="glyphicon glyphicon-hand-right"></span>&nbsp;우리나라 문화재 관광 안내 어플리케이션</li>
+							<?php
+							} else {}
+							?>
+								<?php
+								$rst= $conn->query("select * from `BoothInfo`");
+								while($row = $rst->fetch_assoc()){
+							
+								?>
+								<li><span class="glyphicon glyphicon-hand-right"></span>&nbsp;&nbsp;<?php echo $row['productName']?></li>
+								<?php
+								}
+								?>
 							</ul>
 						</div>
 					</div>
