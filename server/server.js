@@ -204,17 +204,15 @@ app.get('/registerNFC', function(req, res){
 	})
 });
 
-app.get('/setAPlevel', function(req, res){
+app.get('/registerAP', function(req, res){
 	handleDisconnect();
 
 	var index = req.query.index;
-	var aps1 = req.query.aps1;
-	var aps2 = req.query.aps2;
-	var aps3 = req.query.aps3;
+	var ap = req.query.AP;
 
 	res.set('Content-Type', 'text/html');
 
-	var query = "UPDATE  `gamjachip`.`BoothInfo` SET  `apLevel` =  '" + aps1+"/"+aps2+"/"+aps3+ "' WHERE  `BoothInfo`.`" + index + "` =1";
+	var query = "UPDATE  `gamjachip`.`BoothInfo` SET  `apLevel` =  '" + ap + "' WHERE  `BoothInfo`.`index` = " + index;
 
 	client.query(query, function ( error, result, fields ){
 		if(error){
