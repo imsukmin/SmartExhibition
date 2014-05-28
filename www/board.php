@@ -56,7 +56,7 @@ if($type == 'ExhibitionInfo'){
 						</tr>
 						<tr>
 							<th style="width:150px;">전시회 구조</th>
-							<td><img src="images/seatingChart.jpg"></td>
+							<td><img src="<?php echo $row['map']; ?>"></td>
 						</tr>
 						<tr>
 							<th style="width:150px;">홈페이지</th>
@@ -65,6 +65,10 @@ if($type == 'ExhibitionInfo'){
 					</table>
 				</div>
 				<div class="col-lg-2"></div>
+				<div class="col-lg-11"></div>
+				<div class="col-lg-1">
+				<input type="button" class="btn btn-primary btn-sm pull-right" value="수정" onclick="location.href='exhibitionInfo_correct.php';"/>
+				</div>
 			</div>
 
 			<?php 

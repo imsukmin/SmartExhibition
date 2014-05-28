@@ -95,10 +95,10 @@ include "_header.php";
 						</div>
 						<div class="input-append ie_hide">
 							<div class="col-lg-4">
-								<input id="pretty-input" class="form-control" type="text" onclick="$('input[id=myFile]').click();">
+								<input id="pretty-input" class="form-control" type="text" onclick="$('input['id=myFile']').click();">
 							</div>
 
-							<a class="btn btn-info btn-sm" onclick="$('input[id=myFile]').click();">파일 업로드 <span class="glyphicon glyphicon-upload"></span></a>
+							<a class="btn btn-info btn-sm" onclick="$('input['id=myFile']').click();">파일 업로드 <span class="glyphicon glyphicon-upload"></span></a>
 							<div class="col-lg-10">
 								<span style="margin-left:165px;"class="help-block">파일형식을 .gif 또는 .png 또는 .jpg 또는 .jpeg 형식으로 올리시오.</span>
 								<span style="margin-left:165px;" class="help-block">파일크기를 500KB 미만으로 올리시오.</span>
