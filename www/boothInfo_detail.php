@@ -83,7 +83,9 @@ $row = $rst->fetch_assoc();
 							</div>
 
 						
-
+			<script src="//code.jquery.com/jquery.js"></script>
+			<script src="bootstrap/js/bootstrap.min.js"></script>
+			<script src="js/respond.js"></script>
 			<script type="text/javascript" >
 				function deleteBoard() {
 					var conf = confirm("정말로 게시글을 삭제하시겠습니까?");
