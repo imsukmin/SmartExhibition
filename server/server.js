@@ -12,11 +12,6 @@ var client = mysql.createConnection({
 });
 
 function handleDisconnect() {
-	client = mysql.createConnection({
-		user: config.db.host,
-		password: config.db.password,
-		database: config.db.dbname	// instead of "client.query('USE [DBname]')"
-	});
 
 	client.connect(function(err) {              		// The server is either down
 	    if(err) {                                     	// or restarting (takes a while sometimes).
@@ -67,6 +62,7 @@ app.get('/', function(req, res){
 		res.send('Hello world!!');
 		console.log(getDateTime() + ' root Worked');
 	}
+	client.destory();
 });
 
 app.get('/checkHitCount', function(req, res){
@@ -102,6 +98,7 @@ app.get('/checkHitCount', function(req, res){
 		}
 	})
 	console.log('checkHitCount worked.');
+	client.destory();
 })
 
 app.get('/showRanking',function(req, res){
@@ -116,6 +113,7 @@ app.get('/showRanking',function(req, res){
 		}
 	})
 	console.log('showRanking worked.');
+	client.destory();
 })
 
 app.get('/getAP', function(req, res){
@@ -135,6 +133,7 @@ app.get('/getAP', function(req, res){
 		}
 		console.log(getDateTime() + ' getAP Worked');
 	})
+	client.destory();
 });
 
 app.get('/ExhibitionInfo', function(req, res){
@@ -151,6 +150,7 @@ app.get('/ExhibitionInfo', function(req, res){
 	}
 		console.log(getDateTime() + ' ExhibitionInfo Worked');
 	})
+	client.destory();
 });
 
 app.get('/BoothInfo', function(req, res){
@@ -167,6 +167,7 @@ app.get('/BoothInfo', function(req, res){
 		}
 		console.log(getDateTime() + ' BoothInfo Worked');
 	})
+	client.destory();
 });
 app.get('/BoothList', function(req, res){
 	handleDisconnect();
@@ -182,6 +183,7 @@ app.get('/BoothList', function(req, res){
 		}
 		console.log(getDateTime() + ' BoothList Sended');
 	})
+	client.destory();
 });
 
 app.get('/registerNFC', function(req, res){
@@ -202,6 +204,7 @@ app.get('/registerNFC', function(req, res){
 		}
 		console.log(getDateTime() + ' registered NFC query is : ' + query);
 	})
+	client.destory();
 });
 
 app.get('/registerAP', function(req, res){
@@ -222,6 +225,7 @@ app.get('/registerAP', function(req, res){
 		}
 		console.log(getDateTime() + ' BoothList Sended');
 	})
+	client.destory();
 });
 
 app.get('/checkinINFO', function(req, res){
@@ -242,6 +246,7 @@ app.get('/checkinINFO', function(req, res){
 		}
 		console.log(getDateTime() + ' checkinINFO Sended');
 	})
+	client.destory();
 });
 
 app.get('/resetHitCount', function(req, res){
@@ -280,6 +285,7 @@ app.get('/resetHitCount', function(req, res){
 		console.log(getDateTime() + ' reset Hit Count.');
 		}
 	})
+	client.destory();
 });
 
 app.get('/admin/query', function(req, res){
@@ -296,6 +302,7 @@ app.get('/admin/query', function(req, res){
 		}
 		console.log(getDateTime() + ' Admin-query worked');
 	})
+	client.destory();
 });
 
 app.get('/200', function(req, res){

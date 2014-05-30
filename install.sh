@@ -30,14 +30,10 @@ echo "########################################"
 # $MysqlRootPASSWORD = mysql root's Password
 
 echo "## WARNING!! : Please input carefully!!" 
-echo -n " RootPASSWORD : " 
-read -s MysqlRootPASSWORD 
-echo -n " DBNAME : " 
-read db  
-echo -n " DBUSER : " 
-read user 
-echo -n " DBPASSWD : " 
-read -s passwd 
+read -p " RootPASSWORD : " MysqlRootPASSWORD 
+read -p " DBNAME : " db  
+read -p " DBUSER : " user 
+read -p " DBPASSWD : " passwd 
 echo "use mysql;" > useradd.sql 
 echo "create database $db;" >> useradd.sql 
 echo "insert into user values('localhost', '$user', password('$passwd'), 'N', 'N', 'N', 'N','N', 'N', 'N', 'N', 'N', 'N', 'N', 'N','N', 'N');" >> useradd.sql 
