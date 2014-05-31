@@ -8,7 +8,6 @@ $row = $rst->fetch_assoc();
 ?>
 
 
-
 <div class="panel panel-default" >
 	<div class="panel-heading">질의응답 | 질문이 있으면 올려주세요.</div>
 
@@ -58,10 +57,10 @@ $row = $rst->fetch_assoc();
 							<tr>
 								
 								<td class="col-lg-10"><strong>답변</strong>&nbsp;&nbsp;&nbsp;<?php echo $row['comment']; ?></td>
-								<td class="col-lg-1"><input type="button" value="삭제하기" onClick="location.replace('qna_post_ok.php?no=<?php echo $row['index']?>&editmode=delete');" class="btn btn-primary btn-sm" ></td>
+								<td class="col-lg-1"><input type="button" value="삭제하기" onclick="location.replace('qna_post_ok.php?no=<?php echo $row['index']?>&editmode=delete');" class="btn btn-primary btn-sm" ></td>
 								<input type="hidden" name="editmode" value="correct">
 
-								<td class="col-lg-1"><input type="button" value="수정하기" onClick="show('correct');" class="btn btn-primary btn-sm" ></td>
+								<td class="col-lg-1"><input type="button" value="수정하기" onclick="show('correct');" class="btn btn-primary btn-sm" >
 
 
 							</tr>
@@ -69,7 +68,7 @@ $row = $rst->fetch_assoc();
 							<tr id="correct" style="display:none;">
 								<td class="col-lg-10">
 								<!-- <td id="correct" style="display: none;"> -->
-								<textarea style="resize:none;" name="comment" id="correctText" class="form-control" rows="3"><?php echo $row['comment'];?></textarea>
+								<textarea style="resize:none;" name="comment" id="correct" class="form-control" rows="3"><?php echo $row['comment'];?></textarea>
 								</td>
 								<td class="col-lg-2">
 								<input type="submit" value="등록하기" class="btn btn-primary btn-sm">
@@ -95,14 +94,10 @@ $row = $rst->fetch_assoc();
 		</div>
 		<div class="col-lg-9"></div>
 		<div class="col-lg-1">
-			<input type="button" class="btn btn-primary btn-sm" onClick="location.href='board.php?type=QnA';" value="돌아가기" />
+			<input type="button" class="btn btn-primary btn-sm" onclick="location.replace('board.php?type=QnA');" value="돌아가기" />
 
 		</div>
 	</div>
-</div>
-
-
-
 </div>
 
 
@@ -121,12 +116,13 @@ $row = $rst->fetch_assoc();
 	function deleteBoard() {
 		var conf = confirm("정말로 게시글을 삭제하시겠습니까?");
 		if(conf==true) {
-			location.replace('qna_post_ok.php?no=?php echo $row['index']?>&mode=delete');
+			location.replace('qna_post_ok.php?no=<?php echo $row['index']?>&mode=delete');
 		}
 	}
 </script>
 
 
+</div>
 <?php
 include "_footer.php";
 ?>
