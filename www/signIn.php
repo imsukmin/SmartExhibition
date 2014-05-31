@@ -17,15 +17,24 @@ include "common.php";
 		<div style="width:1000px; margin:20px auto;" class="container row">
 
 			<div class="col-lg-3"></div>
-			<div class="col-lg-6">
+			<div class="col-lg-7">
 				<div class="form-group">
 					<input type="hidden" name="mode" value="new" />
+					<input type="hidden" name="checkid" value=0 />
+					<input type="hidden" name="checkpw" value=0 />
+					<input type="hidden" name="checkeq" value=0 />
 					<label class="control-label" for="id">ID</label>
 					<input class="form-control input-sm" type="text" name="id" id="id" placeholder="ID" required="required">
+					<input type="button" value="중복확인" class="btn btn-primary btn-sm" style="overflow:left;" onClick="openCheckId();">
+					
+
 				</div>
 				<div class="form-group">
 					<label class="control-label" for="password">PW</label>
-					<input class="form-control input-sm" type="password" name="password" id="password" placeholder="PW" required="required">
+					<input class="form-control input-sm" type="password" name="password" id="password" onchange="checkPassword(password);" placeholder="PW" required="required">
+					<input class="form-control input-sm" type="password" name="password2" id="password2" onchange="checkequal(password,password2);" placeholder="PW" required="required">
+
+					
 					<span class="help-block">영문, 숫자 포함 3~16 문자.</span>
 				</div>
 				<div class="form-group">
@@ -47,48 +56,116 @@ include "common.php";
 						}
 						?>
 					</select>
-					</select>
-					<input class="form-control input-sm"  type="text" name="teamName" ID="input" placeholder="내용을 넣어주세요.">
+				</select>
+				<input class="form-control input-sm"  type="text" name="teamName" ID="input" placeholder="내용을 넣어주세요.">
 
-				</div>
-				<div class="form-group">
-					<label class="control-label" for="email">E-Mail</label>
-					<input class="form-control input-sm" type="text" name="email" id="email" placeholder="E-Mail" required="required">
-				</div>
-				<div class="form-group">
-					<label class="control-label" for="phone">Cell Phone</label>
-					<input class="form-control input-sm" type="text" name="phone" id="phone" placeholder="Cell Phone" required="required">
-					<span class="help-block">예) 01012345678</span>
-				</div>
-
-				<div class="form-actions">
-					<p align="center">
-						<input type="submit"  class="btn btn-primary btn-sm" value="가입" />
-						<input type="button" class="btn btn-primary btn-sm" onclick="location.href='login.php';" value="돌아가기" /></th></tr>
-					</p>
-				</div>
 			</div>
-			<div class="col-lg-3"></div>
+			<div class="form-group">
+				<label class="control-label" for="email">E-Mail</label>
+				<input class="form-control input-sm" type="text" name="email" id="email" placeholder="E-Mail" required="required">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="phone">Cell Phone</label>
+				<input class="form-control input-sm" type="text" name="phone" id="phone" placeholder="Cell Phone" required="required">
+				<span class="help-block">예) 01012345678</span>
+			</div>
+
+			<div class="form-actions">
+				<p align="center">
+					<input type="submit"  class="btn btn-primary btn-sm" value="가입" />
+					<input type="button" class="btn btn-primary btn-sm" onclick="location.href='login.php';" value="돌아가기" /></th></tr>
+				</p>
+			</div>
 		</div>
-	</form>
+		<div class="col-lg-3"></div>
+	</div>
+</form>
 
-	<script type="text/javascript">
-		function insertInput(str) {
-			if (str != "etc") {
-				document.getElementById("input").value = str;
-				document.getElementById("input").readOnly = true;
-				document.getElementById("input").style.background = "#DFDFDF";
-			} else {
-				document.getElementById("input").value = "";
-				document.getElementById("input").readOnly = false;
-				document.getElementById("input").style.background = "#FFFFFF";
-				document.getElementById("input").focus();
-			}
-		} 
-	</script>
 
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script>
+
+<script type="text/javascript">
+
+	function openCheckId(){
+		var id=document.all.id.value;
+		if(id){
+			url="idcheck.php?id="+id;
+			window.open(url,"chkid","width=300,height=100,menubar=no,toolbar=no");
+		}
+		else{
+			alert("ID를 입력하세요!");
+		}
+	}
+
+	function chkForm(){
+		var checkid=document.all.checkid.value;
+		var checkpw=document.all.checkpw.value;
+		var checkeq=document.all.checkeq.value;
+		var checkem=document.all.checkemail.value;
+		if(checkid==0){
+			alert("ID 중복체크를 하세요!");
+			return false;
+		}
+		if(checkpw==0){
+			alert("Password 규칙대로 입력 하세요!");
+			return false;
+		}
+		if(checkeq==0){
+			alert("Password 확인을 규칙대로 입력 하세요!");
+			return false;
+		}
+		if(checkemail==0){
+			alert("email 입력 하세요!");
+			return false;
+		}
+		return true;
+	}
+	function checkPassword(password) 
+	{
+		// var availableCharacter = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_=+\|()*&^%$#@!~`?></;,.:'";
+
+		// for (var i = 0; i < password.value.length; i++){
+		// 	if (availableCharacter.indexOf(password.value.charAt(i)) == -1) {
+		// 		alert("허용되지 않는 문자를 입력 하셨습니다.");
+		// 		document.all.checkpw.value=0;
+		// 		return false;
+		// 	}
+		// }
+
+		// if((password.value.length < 4)||(password.value.length > 10)){
+		// 	alert("비밀번호는 최소 4자리 이상<br>최대 10자리 까지 가능합니다.");
+		// 	document.all.checkpw.value=0;
+		// 	return false;
+		// }
+		document.all.checkpw.value=1;
+		return true;
+	}
+	function checkequal(password,password2)
+	{
+		if(password.value!=password2.value){
+			alert("입력하신 Password가 일치하지 않습니다.");
+			document.all.checkeq.value=0;
+			return false;
+		}
+		document.all.checkeq.value=1;
+		return true;
+	}
+
+	function insertInput(str) {
+		if (str != "etc") {
+			document.getElementById("input").value = str;
+			document.getElementById("input").readOnly = true;
+			document.getElementById("input").style.background = "#DFDFDF";
+		} else {
+			document.getElementById("input").value = "";
+			document.getElementById("input").readOnly = false;
+			document.getElementById("input").style.background = "#FFFFFF";
+			document.getElementById("input").focus();
+		}
+	} 
+</script>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
 // <![CDATA[
 jQuery( function($) {
 
@@ -140,32 +217,32 @@ jQuery( function($) {
 	$('#id, #password').after('<strong></strong>');
 	
 	// #uid 인풋에서 onkeyup 이벤트가 발생하면
-	id.keyup( function() {
-		var s = $(this).next('strong'); // strong 요소를 변수에 할당
-		if (id.val().length == 0) { // 입력 값이 없을 때
-			s.text(''); // strong 요소에 포함된 문자 지움
-		} else if (id.val().length < 3) { // 입력 값이 3보다 작을 때
-			s.text('[너무 짧아요.] '); // strong 요소에 문자 출력
-		} else if (id.val().length > 16) { // 입력 값이 16보다 클 때
-			s.text('[너무 길어요.] '); // strong 요소에 문자 출력
-		} else { // 입력 값이 3 이상 16 이하일 때
-			s.text('[적당해요.] '); // strong 요소에 문자 출력
-		}
-	});
+	// id.keyup( function() {
+	// 	var s = $(this).next('strong'); // strong 요소를 변수에 할당
+	// 	if (id.val().length == 0) { // 입력 값이 없을 때
+	// 		s.text(''); // strong 요소에 포함된 문자 지움
+	// 	} else if (id.val().length < 3) { // 입력 값이 3보다 작을 때
+	// 		s.text('[너무 짧아요.] '); // strong 요소에 문자 출력
+	// 	} else if (id.val().length > 16) { // 입력 값이 16보다 클 때
+	// 		s.text('[너무 길어요.] '); // strong 요소에 문자 출력
+	// 	} else { // 입력 값이 3 이상 16 이하일 때
+	// 		s.text('[적당해요.] '); // strong 요소에 문자 출력
+	// 	}
+	// });
 	
-	// #upw 인풋에서 onkeyup 이벤트가 발생하면
-	pw.keyup( function() {
-		var s = $(this).next('strong'); // strong 요소를 변수에 할당
-		if (pw.val().length == 0) { // 입력 값이 없을 때
-			s.text(''); // strong 요소에 포함된 문자 지움
-		} else if (pw.val().length < 6) { // 입력 값이 6보다 작을 때
-			s.text('[너무 짧아요.] '); // strong 요소에 문자 출력
-		} else if (pw.val().length > 18) { // 입력 값이 18보다 클 때
-			s.text('[너무 길어요.] '); // strong 요소에 문자 출력
-		} else { // 입력 값이 6 이상 18 이하일 때
-			s.text('[적당해요.] '); // strong 요소에 문자 출력
-		}
-	});
+	// // #upw 인풋에서 onkeyup 이벤트가 발생하면
+	// pw.keyup( function() {
+	// 	var s = $(this).next('strong'); // strong 요소를 변수에 할당
+	// 	if (pw.val().length == 0) { // 입력 값이 없을 때
+	// 		s.text(''); // strong 요소에 포함된 문자 지움
+	// 	} else if (pw.val().length < 6) { // 입력 값이 6보다 작을 때
+	// 		s.text('[너무 짧아요.] '); // strong 요소에 문자 출력
+	// 	} else if (pw.val().length > 18) { // 입력 값이 18보다 클 때
+	// 		s.text('[너무 길어요.] '); // strong 요소에 문자 출력
+	// 	} else { // 입력 값이 6 이상 18 이하일 때
+	// 		s.text('[적당해요.] '); // strong 요소에 문자 출력
+	// 	}
+	// });
 	
 	// #tel 인풋에 onkeydown 이벤트가 발생하면
 	// 하이픈(-) 키가 눌렸는지 확인

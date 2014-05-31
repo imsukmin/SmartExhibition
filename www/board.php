@@ -237,12 +237,6 @@ if($type == 'ExhibitionInfo'){
 				</div>
 
 				
-				<script language="javascript">
-					var index = document.getElementsByName("no");
-					// alert( index.value);
-
-				</script>
-
 				<?php
 				include "_footer.php";
 				?>

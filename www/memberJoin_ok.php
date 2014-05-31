@@ -30,7 +30,7 @@ if($mode=='new'){
 
 	} else {
 		$query = "update `Member` set 
-		`id`= '$id', 
+		
 		`password`= password('$password'), 
 		`name`='$name', 
 		`teamName`='$teamName', 
