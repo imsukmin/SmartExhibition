@@ -433,6 +433,6 @@ if($type == 'ExhibitionInfo'){
 						</div>
 
 
-						<?php
-						include "_footer.php";
-						?>
+<?php
+include "_footer.php";
+?>

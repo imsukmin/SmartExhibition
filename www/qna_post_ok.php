@@ -19,6 +19,8 @@ $comment = $conn->real_escape_string($comment);
 $type = $conn->real_escape_string($type);
 
 
+$date = date("y.m.d");
+
 if($mode=='new'){
 	$query = "insert into QnA (`title`,`writer`,`date`,`content`,`comment`,`hits`)
 	values (	'$title','$writer',	'$date',	'$content',	'$comment',	'$hits');";
@@ -83,3 +85,4 @@ echo "<script>location.href='board.php?type=QnA';</script>";
 // echo "<script>location.replace('qna_detail.php?no=" + $index + "');</script>";
 // else {							echo "<script>location.replace('admin_main.php?mode=board');</script>"; }
 ?>
+

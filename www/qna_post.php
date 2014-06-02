@@ -26,7 +26,7 @@ include "_header.php";
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="writer">글쓴이</label>
-							<input class="form-control input-sm" type="text" name="writer" id="writer" placeholder="글쓴이" required="required">
+							<input class="form-control input-sm" type="text" name="writer" id="writer" placeholder="글쓴이" value="<?php echo $_SESSION['_gamjachip_id']?>">
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="content">내용</label>
