@@ -17,7 +17,7 @@ include "_header.php";
 							<input type="hidden" name="mode" value="new" />
 							<input type="hidden" name="index" value="index" />
 							<input type="hidden" name="type" value="QnA"/> 
-							<input type="hidden" name="hits" value="hits"/> 
+							<!-- <input type="hidden" name="hits" value="hits"/>  -->
 							<input type="hidden" name="date" value=""/>
 							<input type="hidden" name="mode" value="new" />
 

@@ -344,17 +344,21 @@ if($type == 'ExhibitionInfo'){
 
 						#현재 페이지 계산  
 						$current_page = ceil(($no+1)/$page_size);  
+
+						
+
 						?>
 						<div class="panel panel-default" >
 							<div class="panel-heading">질의응답 | 질문이 있으면 올려주세요.</div>
-							<div><input type="hidden" id="no" value="<?php echo $row['index']?>"></div>
+							<?echo $_GET['no']?>
 							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
 										<th style="width:50px">NO</th>
-										<th style="width:300px">글제목</th>
-										<th style="width:100px">글쓴이</th>
-										<th style="width:100px">작성일</th>
+										<th style="width:400px">글제목</th>
+										<th style="width:80px">글쓴이</th>
+										<th style="width:80px">작성일</th>
+										<th style="width:50px">조회수</th>
 									</tr>
 								</thead>
 								<?php
@@ -366,6 +370,7 @@ if($type == 'ExhibitionInfo'){
 											<td><a href="qna_detail.php?no=<?php echo $row['index']?>"><?php echo $row['title']?></a></td>
 											<td><?php echo $row['writer']?></td>
 											<td><?php echo $row['date']?></td>
+											<td><?php echo $row['hits']?></td>
 										</tr> 
 									</tbody>
 									<?php

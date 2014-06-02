@@ -5,6 +5,14 @@ $index = $_GET['no'];
 $rst = $conn->query("select * from `QnA` where `index`='{$index}'");
 $row = $rst->fetch_assoc();
 
+
+//조회수
+						
+$hitQuery="SELECT * FROM `QnA` WHERE `index`='$index'";
+$hitResult=$conn->query($hitQuery);
+$hitrs=$hitResult->fetch_array();
+$hitUpQuery="UPDATE `QnA` set hits = hits + 1 WHERE `index`='$index'";
+$conn->query($hitUpQuery);
 ?>
 
 
