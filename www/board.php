@@ -73,11 +73,29 @@ if($type == 'ExhibitionInfo'){
 
 			<?php 
 		}else if($type == 'BoothInfo'){
-			$rst= $conn->query("select * from `BoothInfo`");
-				// $rst2=$conn->query("select * from `Member`");
+			$page_size=10;# 한페이지에 보여질 게시물의 수  
+			$page_list_size=10; #페이지 나누기에 표시될 페이지의 수  
+			  
+			//데이터베이스에서 페이지의 첫 번째 글($no)부터  
+			//$page_size만큼의 글을 가져온다.  
+			if(!@ $index || @ $index < 0) $no = 0; else $no = $index;  
+			$rst= $conn->query("SELECT * FROM `BoothInfo` ORDER BY `index` DESC LIMIT $no, $page_size");
+
+			//총 게시물 수를 구한다.  
+			$result_count = $conn->query("SELECT count(*) FROM `BoothInfo`");  
+			$result_row=$result_count->fetch_array();  
+			$total_row = $result_row[0]; // 결과의 첫 번째 열이 count(*)의 결과다.  
+			  
+
+			#총 페이지 계산  
+			if($total_row <= 0) $total_row = 0;  
+			$total_page = ceil($total_row / $page_size);  
+			  
+			#현재 페이지 계산  
+			$current_page = ceil(($no+1)/$page_size);  
 			?>
 
-
+			
 			<div class="panel panel-default" >
 				<div class="panel-heading">부스 관리 | 관리하고 싶은 부스를 등록하세요.</div>
 
@@ -105,10 +123,62 @@ if($type == 'ExhibitionInfo'){
 									<td><?php echo $row['professor']?></td>
 								</tr>
 							</tbody>
+							<?
+							}
+							?>
+						</table>
+						</div>
+						<div class="col-lg-11"></div>
+						<div class="col-lg-1">
+							<input type="button" class="btn btn-primary btn-sm pull-right" value="쓰기" onclick="location.href='boothInfo_post.php?mode=new';"/>
+						</div>
 
+						<?  
+						// 페이지 목록에서 시작페이지  
+						$start_page = floor(($current_page-1) / $page_list_size) * $page_list_size + 1;  
+						  
+						// 페이지 목록의 마지막 페이지가 몇 번째 페이지인지 구하는 부분  
+						$end_page = $start_page + $page_list_size - 1;  
+						if($end_page > $total_page) $end_page = $total_page;  
+						  
+						// 이전 페이지 존재 여부 판단과 이전페이는 첫 번째 페이지에서 한페이지 감소하면 된다  
+						// $page_size를 곱해주는 이유는 글 번호를 표시하기 위해서이다.($no 값으로 사용)  
+						 
+						?>
 
+						<div style="text-align:center;">
+
+						<? 
+
+						if($start_page > $page_list_size){  
+						    $prev_list = ($start_page - 2) * $page_size;  
+						    echo "<a href=board.php?type=BoothInfo&no={$prev_list}>◀</a>";  
+						}  
+						  
+						#페이지 목록을 출력  
+						for($i=$start_page;$i<=$end_page;$i++){  
+						    $page = ($i-1) * $page_size; // 페이지 값을 no값으로 변환  
+						    if($no != $page){ // 현재 페이지가 아닐 경우만 링크 표시  
+						        echo "<a href=board.php?type=BoothInfo&no={$page}>";  
+						    }  
+						    echo $i;  
+						    if($no != $page){  
+						        echo "</a>";  
+						    }  
+						    echo " ";  
+						}  
+						  
+						# 다음 페이지 목록이 필요할 때는 총 페이지가 마지막 목록이 총페이지 보다 작을때이다.  
+						if($end_page < $total_page)  
+						{  
+						    $next_list = $end_page * $page_size;  
+						    echo "<a href=board.php?type=BoothInfo&no={$next_list}>▶</a>";  
+						}  
+						?>  
+						
+						</div>
 							<?php
-						}
+						
 
 					} else if($_SESSION['IDlevel']=='user') {
 						while($row = $rst->fetch_assoc()){
@@ -127,13 +197,25 @@ if($type == 'ExhibitionInfo'){
 
 							</table>
 						</div>
-						<div class="col-lg-11"></div>
+						
+
+					<?
+					if($_SESSION['IDlevel']=='user') {
+					 ?>
+					
+						
+					<div class="col-lg-11"></div>
 						<div class="col-lg-1">
 							<input type="button" class="btn btn-primary btn-sm pull-right" value="쓰기" onclick="location.href='boothInfo_post.php?mode=new';"/>
 						</div>
-						<?php
+					<?php
 					}
-					else if($type == 'Member'){	
+					?>
+
+
+					<?php
+
+					} else if($type == 'Member'){	
 						$rst= $conn->query("select * from `Member`");
 						?>
 						<div class="panel panel-default">
