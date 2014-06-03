@@ -30,16 +30,21 @@ echo "########################################"
 # $MysqlRootPASSWORD = mysql root's Password
 
 echo "## WARNING!! : Please input carefully!!" 
-read -p " RootPASSWORD : " MysqlRootPASSWORD 
-read -p " DBNAME : " db  
-read -p " DBUSER : " user 
-read -p " DBPASSWD : " passwd 
+read -s -p " RootPASSWORD : " MysqlRootPASSWORD 
+read -s -p " DBNAME : " db  
+read -s -p " DBUSER : " user 
+read -s -p " DBPASSWD : " passwd 
 echo "use mysql;" > useradd.sql 
 echo "create database $db;" >> useradd.sql 
 echo "insert into user values('localhost', '$user', password('$passwd'), 'N', 'N', 'N', 'N','N', 'N', 'N', 'N', 'N', 'N', 'N', 'N','N', 'N');" >> useradd.sql 
 echo "insert into db values ('localhost','$db','$user','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y');" >> useradd.sql 
 echo "flush privileges;" >> useradd.sql 
 
+# increse max connection info of mysql
+echo "set global max_connections=10000;" >> useradd.sql
+echo "SET GLOBAL connect_timeout=28800" >> useradd.sql
+echo "SET GLOBAL wait_timeout=28800" >> useradd.sql
+echo "SET GLOBAL interactive_timeout=28800" >> useradd.sql
 #################################
 ###       clone project       ###
 #################################
@@ -81,9 +86,6 @@ apt-get -y install nginx
 #################################
 
 # Beforehead, set Mysql root Password use "debconf-set-selections"
-# debconf-set-selections <<< 'mysql-server mysql-server/root_password password $MysqlRootPASSWORD'
-# debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password $MysqlRootPASSWORD'
-
 echo mysql-server mysql-server/root_password password $MysqlRootPASSWORD | sudo debconf-set-selections
 echo mysql-server mysql-server/root_password_again password $MysqlRootPASSWORD | sudo debconf-set-selections
 
@@ -101,6 +103,10 @@ apt-get -y install php5-mysql
 
 # execute sql query basic before input's
 mysql -u root -p$MysqlRootPASSWORD < useradd.sql
+
+# execute sql query basic tables
+
+mysql -u root -p$MysqlRootPASSWORD < tables.sql
 
 # delete data file
 rm -rf useradd.sql
@@ -175,7 +181,7 @@ echo "config.db.port = 3000;"  >> config.js
 echo " "  >> config.js
 echo "module.exports = config;"  >> config.js
 
-mv -r config.js server/config.js
+mv config.js server/config.js
 
 #################################
 ###    install node server    ###
@@ -188,6 +194,8 @@ cp -r server/ $NGINXROOTPATH
 #################################
 ## use recursive plag
 cp -r www/ $NGINXROOTPATH
+
+cd $NGINXROOTPATH
 
 echo "########################################"
 echo "       Server install script end       "

@@ -11,25 +11,6 @@ var client = mysql.createConnection({
 	database: config.db.dbname	// instead of "client.query('USE [DBname]')"
 });
 
-function handleDisconnect() {
-
-	client.connect(function(err) {              		// The server is either down
-	    if(err) {                                     	// or restarting (takes a while sometimes).
-	      	console.log('error when connecting to db:', err);
-	      	setTimeout(handleDisconnect, 2000); 		// We introduce a delay before attempting to reconnect,
-	    }                                     			// to avoid a hot loop, and to allow our node script to
-	});													// process asynchronous requests in the meantime.
-                                          				// If you're also serving http, display a 503 error.
-	client.on('error', function(err) {
-	    console.log('db error', err);
-	    if(err.code === 'PROTOCOL_CONNECTION_LOST') { 	// Connection to the MySQL server is usually
-	      handleDisconnect();                         	// lost due to either server restart, or a
-	    } else {                                      	// connnection idle timeout (the wait_timeout
-	      throw err;                                  	// server variable configures this)
-	    }
-	});              	
-}
-
 function getDateTime() {
 
     var date = new Date();
@@ -49,24 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 // app.use(express.responseTime());
 
-app.get('/', function(req, res){
-	handleDisconnect();
-	var msg = req.query.msg;
-
-	res.set('Content-Type', 'text/html');
-
-	if(msg != null){
-		res.send('your message is ' + msg );
-		console.log('root message Worked');
-	} else {
-		res.send('Hello world!!');
-		console.log(getDateTime() + ' root Worked');
-	}
-	client.destory();
-});
-
 app.get('/checkHitCount', function(req, res){
-	handleDisconnect();
 	var index = req.query.index;
 	var userID = req.query.userID;
 	var time = req.query.time;
@@ -97,12 +61,11 @@ app.get('/checkHitCount', function(req, res){
 			}
 		}
 	})
-	console.log('checkHitCount worked.');
-	client.destory();
+	console.log(getDateTime() + 'checkHitCount worked.');
+
 })
 
 app.get('/showRanking',function(req, res){
-	handleDisconnect();
 	var query = "SELECT  `index` , COUNT(  `index` ) as count FROM  `visitors` GROUP BY  `index` order by count desc LIMIT 0 , 30";
 
 	client.query(query, function( error, result, fields ){
@@ -112,12 +75,11 @@ app.get('/showRanking',function(req, res){
 			res.send(result);
 		}
 	})
-	console.log('showRanking worked.');
-	client.destory();
+	console.log(getDateTime() + 'showRanking worked.');
+	
 })
 
 app.get('/getAP', function(req, res){
-	handleDisconnect();
 	res.set('Content-Type', 'text/html');
 
 	var query = 'select * from AP';
@@ -133,11 +95,10 @@ app.get('/getAP', function(req, res){
 		}
 		console.log(getDateTime() + ' getAP Worked');
 	})
-	client.destory();
+	
 });
 
 app.get('/ExhibitionInfo', function(req, res){
-	handleDisconnect();
 	res.set('Content-Type', 'text/html');
 
 	var query = 'select * from ExhibitionInfo';
@@ -150,11 +111,10 @@ app.get('/ExhibitionInfo', function(req, res){
 	}
 		console.log(getDateTime() + ' ExhibitionInfo Worked');
 	})
-	client.destory();
+	
 });
 
 app.get('/BoothInfo', function(req, res){
-	handleDisconnect();
 	res.set('Content-Type', 'text/html');
 
 	var query = 'select * from BoothInfo';
@@ -167,10 +127,9 @@ app.get('/BoothInfo', function(req, res){
 		}
 		console.log(getDateTime() + ' BoothInfo Worked');
 	})
-	client.destory();
+	
 });
 app.get('/BoothList', function(req, res){
-	handleDisconnect();
 	res.set('Content-Type', 'text/html');
 
 	var query = 'select `index`, `teamName`, `nfcTagId` from BoothInfo';
@@ -183,11 +142,10 @@ app.get('/BoothList', function(req, res){
 		}
 		console.log(getDateTime() + ' BoothList Sended');
 	})
-	client.destory();
+	
 });
 
 app.get('/registerNFC', function(req, res){
-	handleDisconnect();
 
 	var index = req.query.index;
 	var nfcID = req.query.nfcID;
@@ -204,11 +162,10 @@ app.get('/registerNFC', function(req, res){
 		}
 		console.log(getDateTime() + ' registered NFC query is : ' + query);
 	})
-	client.destory();
+	
 });
 
 app.get('/registerAP', function(req, res){
-	handleDisconnect();
 
 	var index = req.query.index;
 	var ap = req.query.AP;
@@ -225,12 +182,10 @@ app.get('/registerAP', function(req, res){
 		}
 		console.log(getDateTime() + ' BoothList Sended');
 	})
-	client.destory();
+	
 });
 
 app.get('/checkinINFO', function(req, res){
-	handleDisconnect();
-
 
 	var userID = req.query.userID;
 
@@ -246,11 +201,10 @@ app.get('/checkinINFO', function(req, res){
 		}
 		console.log(getDateTime() + ' checkinINFO Sended');
 	})
-	client.destory();
+	
 });
 
 app.get('/resetHitCount', function(req, res){
-	handleDisconnect();
 	res.set('Content-Type', 'text/html');	
 
 	var query = "TRUNCATE TABLE `visitors`";
@@ -279,17 +233,15 @@ app.get('/resetHitCount', function(req, res){
 				}
 			}
 		})
-
 		res.send("Reset Complete!");
 
 		console.log(getDateTime() + ' reset Hit Count.');
 		}
 	})
-	client.destory();
+	
 });
 
 app.get('/admin/query', function(req, res){
-	handleDisconnect();
 	res.set('Content-Type', 'text/html');
 
 	var query = req.query.query;
@@ -302,23 +254,7 @@ app.get('/admin/query', function(req, res){
 		}
 		console.log(getDateTime() + ' Admin-query worked');
 	})
-	client.destory();
-});
-
-app.get('/200', function(req, res){
-	res.send(200);
-	console.log(getDateTime() + ' 200 Worked');
-});
-
-app.get('/404', function(req, res){
-	res.send(404);
-	console.log(getDateTime() + ' 404 Worked');
-});
-
-app.get('/500', function(req, res){
-	var level = req.query.level;	
-	res.send(500);
-	console.log(getDateTime() + ' 500 Worked');
+	
 });
 
 var server = app.listen(43125, function() {
