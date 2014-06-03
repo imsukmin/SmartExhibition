@@ -59,7 +59,7 @@ if($count == 0) {
 						<td colspan="3"><strong>내용</strong>&nbsp;&nbsp;&nbsp;<?php echo $row['content']; ?></td>
 					</tr>
 					<tr>
-						<th colspan="3">답변을 달아주세요.</th>
+						<th colspan="3">답변을 달아주세요. (관리자만 답변을 달 수 있습니다.)</th>
 					</tr>
 					<?php
 					if($_SESSION['IDlevel']=='admin') {

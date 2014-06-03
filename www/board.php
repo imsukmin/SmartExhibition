@@ -179,40 +179,48 @@ if($type == 'ExhibitionInfo'){
 						?>  
 						
 					</div>
+					</table>
+					</div>
 					<?php
 
 
 				} else if($_SESSION['IDlevel']=='user') {
-					while($row = $rst->fetch_assoc()){
-						if($_SESSION['IDteamName']==$row['teamName']) {
-							?>
-							<script>location.href="boothInfo_detail.php?no=<?php echo $row['index']?>;"</script>
-							<?php
-						}
+					$teamName = $_SESSION['IDteamName'];
+					$query = "SELECT * FROM `BoothInfo` WHERE `teamName`= '$teamName'";
+					$rst = $conn->query($query);
+
+					$row = $rst->fetch_assoc();
+						
+				 	if($row!=null) {
+
+					?>
+
+					<script>location.href="boothInfo_detail.php?no=<?php echo $row['index']?>;"</script>
+				<?
+						
 
 					}
+				
+				else {
+
+					?>
+					</table>
+					</div>
+					<div class="col-lg-11"></div>
+					<div class="col-lg-1">
+						<input type="button" class="btn btn-primary btn-sm pull-right" value="쓰기" onclick="location.href='boothInfo_post.php?mode=new';"/>
+					</div>
+					<?php
 				}
 
+			}
 				?>
 
 
-
-			</table>
-		</div>
+			
 
 
-		<?
-		if($_SESSION['IDlevel']=='user') {
-			?>
-
-
-			<div class="col-lg-11"></div>
-			<div class="col-lg-1">
-				<input type="button" class="btn btn-primary btn-sm pull-right" value="쓰기" onclick="location.href='boothInfo_post.php?mode=new';"/>
-			</div>
-			<?php
-		}
-		?>
+		
 
 
 		<?php
@@ -357,11 +365,11 @@ if($type == 'ExhibitionInfo'){
 							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
-										<th style="width:50px">NO</th>
+										<th style="width:100px">NO</th>
 										<th style="width:400px">글제목</th>
-										<th style="width:80px">글쓴이</th>
-										<th style="width:80px">작성일</th>
-										<th style="width:50px">조회수</th>
+										<th style="width:100px">글쓴이</th>
+										<th style="width:100px">작성일</th>
+										<th style="width:100px">조회수</th>
 									</tr>
 								</thead>
 								<?php

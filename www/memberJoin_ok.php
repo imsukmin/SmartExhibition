@@ -47,6 +47,7 @@ if($mode=='new'){
 // print_r($_SESSION);
 $conn->query($query); // query문 전송!
 if($mode=='new') {
+echo "<script>alert('회원 가입이 정상적으로 되었습니다. 회원 승인을 기다려 주세요.');</script>";
 echo "<script>location.href='login.php';</script>"; 
 } else {
 	echo "<script>location.href='board.php?type=Member';</script>";
