@@ -58,15 +58,16 @@ if($count == 0) {
 					<tr>
 						<td colspan="3"><strong>내용</strong>&nbsp;&nbsp;&nbsp;<?php echo $row['content']; ?></td>
 					</tr>
+					<tr>
+						<th colspan="3">답변을 달아주세요.</th>
+					</tr>
 					<?php
 					if($_SESSION['IDlevel']=='admin') {
 
 						if($row['comment']==null)  {
 
 							?>
-							<tr>
-								<th colspan="3">답변을 달아주세요.</th>
-							</tr>
+						
 
 							<tr>
 								<td class="col-lg-11">
@@ -112,7 +113,9 @@ if($count == 0) {
 
 
 		</div>
-
+		<?
+		if($row['writer']==$_SESSION['_gamjachip_id']) {
+		?>
 
 		<div class="col-lg-2">
 			<input type="button" class="btn btn-primary btn-sm" value="수정" onclick="location.href='qna_post.php?mode=correct&no=<?php echo $row['index']?>';"/>
@@ -124,6 +127,18 @@ if($count == 0) {
 			<input type="button" class="btn btn-primary btn-sm" onclick="location.replace('board.php?type=QnA');" value="돌아가기" />
 
 		</div>
+		<?
+		} else {
+			?>
+		<div class="col-lg-11"></div>
+		<div class="col-lg-1">
+			<input type="button" class="btn btn-primary btn-sm" onclick="location.replace('board.php?type=QnA');" value="돌아가기" />
+
+		</div>
+			<?
+		}
+		?>
+		
 	</div>
 </div>
 

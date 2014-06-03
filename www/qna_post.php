@@ -26,7 +26,7 @@ include "_header.php";
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="writer">글쓴이</label>
-							<input class="form-control input-sm" type="text" name="writer" id="writer" placeholder="글쓴이" value="<?php echo $_SESSION['_gamjachip_id']?>">
+							<input class="form-control input-sm" type="text" name="writer" id="writer" placeholder="글쓴이" value="<?php echo $_SESSION['_gamjachip_id']?>" readonly="readonly">
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="content">내용</label>
@@ -76,7 +76,7 @@ include "_header.php";
 								</div>
 								<div class="form-group">
 									<label class="control-label" for="writer">글쓴이</label>
-									<input class="form-control input-sm" type="text" name="writer" id="writer" value="<?php echo $row['writer'];?>"  required="required">
+									<input class="form-control input-sm" type="text" name="writer" id="writer" value="<?php echo $_SESSION['_gamjachip_id']?>" readonly="readonly" required="required">
 								</div>
 								<div class="form-group">
 									<label class="control-label" for="content">내용</label>

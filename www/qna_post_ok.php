@@ -22,7 +22,7 @@ $type = $conn->real_escape_string($type);
 $date = date("y.m.d");
 
 
-
+$writer = $_SESSION['_gamjachip_id'];
 
 if($mode=='new'){
 	$query = "insert into QnA (`title`,`writer`,`date`,`content`,`comment`,`hits`)
