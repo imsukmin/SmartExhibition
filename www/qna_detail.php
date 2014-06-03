@@ -5,14 +5,33 @@ $index = $_GET['no'];
 $rst = $conn->query("select * from `QnA` where `index`='{$index}'");
 $row = $rst->fetch_assoc();
 
+ //조회수
+$hitIndexQuery = $conn->query("SELECT `index` from `QnA` where `index`='$index'");
+$hitIndex = $hitIndexQuery->fetch_array();
+
+$hitIndex = $hitIndex[0];
+
+$hitId = $_SESSION['_gamjachip_id'];	
+
+$countQuery = $conn->query("SELECT count(*) as count FROM `hitcount` WHERE `index` = '$hitIndex' and `id` = '$hitId'");
+$count = $countQuery->fetch_array();
+$count = $count[0];
+
+if($count == 0) {
+	$InsertQuery = "INSERT INTO `gamjachip`.`hitcount` (`index` ,`id`) VALUES ( '$index',  '$hitId')";
+	$hits = $conn->query($InsertQuery);
+
+} else {}
+
+
 
 //조회수
 						
-$hitQuery="SELECT * FROM `QnA` WHERE `index`='$index'";
-$hitResult=$conn->query($hitQuery);
-$hitrs=$hitResult->fetch_array();
-$hitUpQuery="UPDATE `QnA` set hits = hits + 1 WHERE `index`='$index'";
-$conn->query($hitUpQuery);
+// $hitQuery="SELECT * FROM `QnA` WHERE `index`='$index'";
+// $hitResult=$conn->query($hitQuery);
+// $hitrs=$hitResult->fetch_array();
+// $hitUpQuery="UPDATE `QnA` set hits = hits + 1 WHERE `index`='$index'";
+// $conn->query($hitUpQuery);
 ?>
 
 

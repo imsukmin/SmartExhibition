@@ -345,6 +345,9 @@ if($type == 'ExhibitionInfo'){
 						#현재 페이지 계산  
 						$current_page = ceil(($no+1)/$page_size);  
 
+
+
+						
 						
 
 						?>
@@ -363,6 +366,14 @@ if($type == 'ExhibitionInfo'){
 								</thead>
 								<?php
 								while($row = $rst->fetch_assoc()){
+									$hitIndex = $row['index'];
+									//조회수
+									$query = "SELECT COUNT( `index`) as count FROM  `hitcount` where `index` = $hitIndex GROUP BY  `index`";
+									$showHitQuery = $conn->query($query);
+									$showHit = $showHitQuery->fetch_array();
+
+									$showHit = $showHit['count'];
+						
 									?>
 									<tbody>
 										<tr>
@@ -370,7 +381,7 @@ if($type == 'ExhibitionInfo'){
 											<td><a href="qna_detail.php?no=<?php echo $row['index']?>"><?php echo $row['title']?></a></td>
 											<td><?php echo $row['writer']?></td>
 											<td><?php echo $row['date']?></td>
-											<td><?php echo $row['hits']?></td>
+											<td><?php echo $showHit ?></td>
 										</tr> 
 									</tbody>
 									<?php
