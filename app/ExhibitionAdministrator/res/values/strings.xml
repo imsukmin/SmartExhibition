@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ExhibitionAdministrator</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="exhibition_list">컴퓨터공학과 졸업프로젝트</string>
+    <string name="open_drawer">Open drawer</string>
+    <string name="close_drawer">Close drawer</string>
+    <string name="str_teamName">팀명</string>
+    <string name="str_productName">작품명</string>
+    <string name="str_professor">담당교수 </string>
+    <string name="str_outline">프로젝트 개요 </string>
+    <string name="str_member">팀원</string>
+    <string name="str_summary">프로젝트 요약</string>
+    <string name="str_target">타겟머신 및 운영체제</string>
+    <string name="str_homepage">홈페이지 </string>
+    <string name="str_boothranking">부스순위</string>
+    <string name="str_rank">순위</string>
+    <string name="str_nearBoothCurrentState">주위부스현황</string>
+    <string name="str_checkInBoothChecking">방문부스확인</string>
+    <string name="str_seeBoothRanking">부스랭킹보기</string>
+
+</resources>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.googry.android.gradproj"
+    android:versionCode="6"
+    android:versionName="1.5" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.googry.android.gradproj.IntroActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.googry.android.gradproj.ExhibitionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light" >
+        </activity>
+        <activity
+            android:name="com.googry.android.gradproj.NearExhibitionListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light" >
+        </activity>
+        <activity
+            android:name="com.googry.android.gradproj.ExhibitionRankActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light" >
+        </activity>
+        <activity
+            android:name="com.googry.android.gradproj.ExhibitionCheckInActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light" >
+        </activity>
+        <activity
+            android:name="com.googry.android.gradproj.BoothFloorPlansActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.googry.android.gradproj.ExhibitionListActivity"
+            android:icon="@drawable/icon"
+            android:label="@string/exhibition_list"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light" >
+        </activity>
+    </application>
+
+    <!-- wifi permission -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- nfc feature and permission -->
+    <uses-feature android:name="android.hardware.nfc" />
+
+    <uses-permission android:name="android.permission.NFC" />
+
+</manifest>

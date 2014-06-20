@@ -1,0 +1,3 @@
+WIFI signal check and transmission
+MAC address(id) of NFC Tag check and transmission
+Server Communication
