@@ -66,26 +66,6 @@ include "_header.php";
 						</div>
 					</div>
 
-					<?php
-					if($_SESSION['level']=='admin') {
-						?>
-						<div class="form-group">
-							<label for="apLevel" class="col-lg-2 control-label">ApLevel</label>
-							<div class="col-lg-4">
-								<textarea style="resize:none;"  name="apLevel" class="form-control" id="apLevel" placeholder="ApLevel" rows="1" required="required"></textarea>
-
-							</div>
-							<label for="nfcTagId" class="col-lg-2 control-label">NfcTagID</label>
-							<div class="col-lg-4">
-								<textarea style="resize:none;"  name="nfcTagId" class="form-control" id="nfcTagId" placeholder="NFCTagID" rows="1" required="required"></textarea>
-
-							</div>
-						</div>
-						<?php
-					} else if($_SESSION['level']=='user') {
-
-					}
-					?>
 
 					<div class="form-group">
 						<label for="myFile" class="col-lg-2 control-label">브로셔 이미지</label>
@@ -102,7 +82,7 @@ include "_header.php";
 							<div class="col-lg-10">
 								<span style="margin-left:165px;"class="help-block">파일형식을 .gif 또는 .png 또는 .jpg 또는 .jpeg 형식으로 올리시오.</span>
 								<span style="margin-left:165px;" class="help-block">파일크기를 500KB 미만으로 올리시오.</span>
-								<span style="margin-left:165px;" class="help-block">파일크기를 500*800 이내로 하시오.</span>	
+								<span style="margin-left:165px;" class="help-block">파일크기를 800*800 이내로 하시오.</span>	
 							</div>
 						</div>
 					</div>
@@ -191,26 +171,7 @@ include "_header.php";
 								</div>
 							</div>
 
-							<?php
-							if($_SESSION['level']=='admin') {
-								?>
-								<div class="form-group">
-									<label for="apLevel" class="col-lg-2 control-label">ApLevel</label>
-									<div class="col-lg-4">
-										<textarea style="resize:none;"  name="apLevel" class="form-control" id="apLevel" placeholder="ApLevel" rows="1" required="required"><?php echo $row['apLevel'];?></textarea>
-
-									</div>
-									<label for="nfcTagId" class="col-lg-2 control-label">NfcTagID</label>
-									<div class="col-lg-4">
-										<textarea style="resize:none;"  name="nfcTagId" class="form-control" id="nfcTagId" placeholder="NFCTagID" rows="1" required="required"><?php echo $row['nfcTagId'];?></textarea>
-
-									</div>
-								</div>
-								<?php
-							} else if($_SESSION['level']=='user') {
-
-							}
-							?>
+							
 
 							<div class="form-group">
 								<label for="myFile" class="col-lg-2 control-label">브로셔 이미지</label>
@@ -227,7 +188,7 @@ include "_header.php";
 									<div class="col-lg-10">
 										<span style="margin-left:165px;"class="help-block">파일형식을 .gif 또는 .png 또는 .jpg 또는 .jpeg 형식으로 올리시오.</span>
 										<span style="margin-left:165px;" class="help-block">파일크기를 500KB 미만으로 올리시오.</span>
-										<span style="margin-left:165px;" class="help-block">파일크기를 500*800 이내로 하시오.</span>	
+										<span style="margin-left:165px;" class="help-block">파일크기를 800*800 이내로 하시오.</span>	
 									</div>
 								</div>
 							</div>

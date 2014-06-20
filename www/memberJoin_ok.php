@@ -1,3 +1,11 @@
+<!DOCTYPE html5>
+<html>
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+</head>
+</html>
+
 <?php
 include "common.php";
 

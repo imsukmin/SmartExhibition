@@ -35,7 +35,7 @@ include "common.php";
 					<input class="form-control input-sm" type="password" name="password2" id="password2" onchange="checkequal(password,password2);" placeholder="PW" required="required">
 
 					
-					<span class="help-block">영문, 숫자 포함 3~16 문자.</span>
+					<span class="help-block">영문, 숫자 포함 7~16 문자.</span>
 				</div>
 				<div class="form-group">
 					<label class="control-label" for="name">Name</label>

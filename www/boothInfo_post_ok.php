@@ -56,9 +56,9 @@ else {
       $isError = "'파일형식을 .gif 또는 .png 또는 .jpg 또는 .jpeg 형식으로 올리시오.'";
     }  else if($_FILES["myFile"]["size"]>512000) {
       $isError = "'파일크기를 500KB 미만으로 올리시오.'";
-    } else if($sizeInfo[0]>500 || $sizeInfo[1]>800){
+    } else if($sizeInfo[0]>800 || $sizeInfo[1]>800){
         
-               $isError="'파일크기를 500*800 이내로 하시오.'";
+               $isError="'파일크기를 800*800 이내로 하시오.'";
      } else {
               $isError="success";
               move_uploaded_file($_FILES["myFile"]["tmp_name"], $dest);
@@ -83,8 +83,8 @@ echo '<script> alert("사진을 성공적으로 업로드하였습니다.");</sc
 }
 if($mode=='new'){
 
-$query = "insert into BoothInfo (`teamName`,`productName`,`professor`,`member`,`outline`,`target`,`homepage`,`brochure`,`nfcTagId`,`apLevel`,`summary`)
-values ( '$teamName','$productName', '$professor',  '$member', '$outline', '$target', '$homepage', '$dest', '$nfcTagId', '$apLevel', '$summary');";
+$query = "insert into BoothInfo (`teamName`,`productName`,`professor`,`member`,`outline`,`target`,`homepage`,`brochure`,`summary`)
+values ( '$teamName','$productName', '$professor',  '$member', '$outline', '$target', '$homepage', '$dest', '$summary');";
 
 }
 
@@ -100,8 +100,6 @@ $query = "update `BoothInfo` set
 `target`='$target', 
 `homepage`='$homepage', 
 `brochure`='$dest', 
-`nfcTagId`='$nfcTagId',
-`apLevel`='$apLevel', 
 `summary`='$summary'
 
 
@@ -119,7 +117,11 @@ else if($mode =='delete'){
 // echo $dest;
 // echo $_FILES["myFile"]["name"];
 $conn->query($query); // query문 전송!
-echo "<script>location.href='board.php?type=BoothInfo';</script>";
+if($mode == 'new') {
+    echo "<script>location.href='board.php?type=BoothInfo';</script>";
+} else {
+    echo "<script>location.href='boothInfo_detail.php?no=$index';</script>";
+}
 // echo "<script>location.replace('qna_detail.php?no=" + $index + "');</script>";
 // else {             echo "<script>location.replace('admin_main.php?mode=board');</script>"; }
 ?>
