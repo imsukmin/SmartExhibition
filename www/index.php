@@ -1,5 +1,5 @@
 <?php
 
-phpinfo();
 
+echo "<script>location.href='home.php';</script>";
 ?>
