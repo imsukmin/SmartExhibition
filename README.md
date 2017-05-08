@@ -1,4 +1,4 @@
-#Smart Exhibition
+# Smart Exhibition
 =========
 
 Copyright (c) 2014, imsukmin.
@@ -9,13 +9,13 @@ Permission is granted to copy, distribute and/or modify this document under the 
 If you want to contect us OR need to halp, Please email send to mailto:theidiotsound@gmail.com
 
 =========
-######The project have a GPL v2 license.
+###### The project have a GPL v2 license.
 
-####2014 Hansung Univ. CSE Project by GamjaChip
+#### 2014 Hansung Univ. CSE Project by GamjaChip
 
-####This is framework for the gallery who is watching Exhibition to deliver information of booths using NFC tag and Wifi signal.
+#### This is framework for the gallery who is watching Exhibition to deliver information of booths using NFC tag and Wifi signal.
 
-##How to use project (at Ubuntu 12.04)
+## How to use project (at Ubuntu 12.04)
 
 ### Android 
 
